@@ -1,0 +1,121 @@
+ext {
+    /* Android Config */
+    configuration = [
+            package                  : "com.dev.aman.movies_tmbd",
+            compileSdkVersion        : 28,
+            minSdkVersion            : 19,
+            targetSdkVersion         : 28,
+            versionCode              : 1,
+            versionName              : "1.0",
+            testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner"
+    ]
+
+    /* Android Libraries */
+    final def vMultiDex = '2.0.0'
+    final def vSupport = '1.0.0-rc01'
+    final def vAppCompat = '1.0.2'
+    final def vKTX = '1.0.1'
+    final def vConstraintLayout = '1.1.3'
+    final def vLifeCycleKTX = '2.0.0'
+
+    /* Third party Libraries */
+    final def vCircleImageView = '2.2.0'
+    final def vDagger = '2.21'
+    final def vExpandableLayout = '2.9.2'
+    final def vJwRetrofitRxJavaAdapter = '1.0.0'
+    final def vJwRxBinding = '2.1.1'
+    final def vOkHttp = '3.11.0'
+    final def vRetrofit = '2.3.0'
+    final def vRxAndroid = '2.1.0'
+    final def vRxJava = '2.2.3'
+    final def vStetho = '1.5.0'
+
+    /* Test Libraries */
+    final def vJUnit = '4.12'
+    final def vSupportTestEspresso = '3.1.1'
+    final def vSupportTestRunner = '1.1.1'
+
+
+    androidSupportLibrary = [
+            appCompat       : "androidx.appcompat:appcompat:$vAppCompat",
+            constraintLayout: "androidx.constraintlayout:constraintlayout:$vConstraintLayout",
+
+    ]
+
+    archLifecycle = [
+            lifeCycle: "androidx.lifecycle:lifecycle-viewmodel:$vLifeCycleKTX"
+    ]
+
+    androidLibraries = [
+            multiDex     : "androidx.multidex:multidex:$vMultiDex",
+            supportDesign: "com.google.android.material:material:$vSupport"
+
+    ]
+
+    rxJavaDependencies = [
+            rxJava   : "io.reactivex.rxjava2:rxjava:$vRxJava",
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:$vRxAndroid",
+            rxBinding: "com.jakewharton.rxbinding2:rxbinding:$vJwRxBinding"
+    ]
+
+    networkDependencies = [
+            retrofit               : "com.squareup.retrofit2:converter-gson:$vRetrofit",
+            retrofitRxJavaAdapter  : "com.squareup.retrofit2:adapter-rxjava2:$vRetrofit",
+            retrofitGsonConverter  : "com.squareup.retrofit2:converter-gson:$vRetrofit",
+            jwRetrofitRxJavaAdapter: "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$vJwRetrofitRxJavaAdapter",
+            okHttp3                : "com.squareup.okhttp3:okhttp:$vOkHttp",
+            okHttp3Logging         : "com.squareup.okhttp3:logging-interceptor:$vOkHttp"
+    ]
+
+    dagger = [
+            dagger                        : "com.google.dagger:dagger:$vDagger",
+            daggerCompiler                : "com.google.dagger:dagger-compiler:$vDagger",
+            androidTestAnnotationProcessor: "com.google.dagger:dagger-compiler:$vDagger",
+            testAnnotationProcessor       : "com.google.dagger:dagger-compiler:$vDagger",
+            debugAnnotationProcessor      : "com.google.dagger:dagger-compiler:$vDagger"
+    ]
+
+    libs = [
+            circleImageview : "de.hdodenhof:circleimageview:$vCircleImageView",
+            expandableLayout: "net.cachapa.expandablelayout:expandablelayout:$vExpandableLayout",
+            stetho          : "com.facebook.stetho:stetho:$vStetho",
+            stethoOkHttp    : "com.facebook.stetho:stetho-okhttp3:$vStetho",
+            dagger          : dagger.dagger
+    ]
+
+    kotlin = [
+            ktx: "androidx.core:core-ktx:$vKTX"
+    ]
+
+    testLibs = [
+            junit: "junit:junit:$vJUnit"
+    ]
+
+    androidTestAnnotationProcessor = [
+            dagger: dagger.androidTestAnnotationProcessor
+    ]
+
+    testAnnotationProcessor = [
+            dagger: dagger.testAnnotationProcessor
+    ]
+
+    debugAnnotationProcessor = [
+            dagger: dagger.debugAnnotationProcessor
+    ]
+
+    androidTestLibs = [
+            espresso: "com.android.support.test.espresso:espresso-core:$vSupportTestEspresso",
+            runner  : "com.android.support.test:runner:$vSupportTestRunner"
+    ]
+
+    allImplementation = [
+            androidSupportLibrary: androidSupportLibrary.values(),
+            androidLibraries     : androidLibraries.values(),
+            androidTestLibs      : androidTestLibs.values(),
+            rxJavaDependencies   : rxJavaDependencies.values(),
+            networkDependencies  : networkDependencies.values(),
+            kotlin               : kotlin.values(),
+            testLibs             : testLibs.values(),
+            archLifecycle        : archLifecycle.values()
+    ]
+}

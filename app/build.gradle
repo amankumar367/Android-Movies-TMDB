@@ -4,10 +4,12 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 apply from: 'dependencies.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion configuration.compileSdkVersion
     defaultConfig {
         applicationId configuration.package
         minSdkVersion configuration.minSdkVersion
@@ -51,4 +53,6 @@ dependencies {
     testAnnotationProcessor testAnnotationProcessor.values()
 
     debugAnnotationProcessor debugAnnotationProcessor.values()
+
+    kapt daggerKapt.values()
 }

@@ -11,45 +11,45 @@ ext {
     ]
 
     /* Android Libraries */
-    final def vMultiDex = '2.0.0'
-    final def vSupport = '1.0.0-rc01'
-    final def vAppCompat = '1.0.2'
-    final def vKTX = '1.0.1'
+    final def vMultiDex         = '2.0.0'
+    final def vSupport          = '1.0.0-rc01'
+    final def vAppCompat        = '1.0.2'
+    final def vKTX              = '1.0.1'
     final def vConstraintLayout = '1.1.3'
-    final def vLifeCycleKTX = '2.0.0'
+    final def vLifeCycleKTX     = '2.0.0'
 
     /* Third party Libraries */
-    final def vCircleImageView = '2.2.0'
-    final def vDagger = '2.21'
-    final def vExpandableLayout = '2.9.2'
-    final def vJwRetrofitRxJavaAdapter = '1.0.0'
-    final def vJwRxBinding = '2.1.1'
-    final def vOkHttp = '3.11.0'
-    final def vRetrofit = '2.3.0'
-    final def vRxAndroid = '2.1.0'
-    final def vRxJava = '2.2.3'
-    final def vStetho = '1.5.0'
+    final def vCircleImageView          = '2.2.0'
+    final def vDagger                   = '2.22.1'
+    final def vExpandableLayout         = '2.9.2'
+    final def vJwRetrofitRxJavaAdapter  = '1.0.0'
+    final def vJwRxBinding              = '2.1.1'
+    final def vOkHttp                   = '3.11.0'
+    final def vRetrofit                 = '2.3.0'
+    final def vRxAndroid                = '2.1.0'
+    final def vRxJava                   = '2.2.3'
+    final def vStetho                   = '1.5.0'
+    final def vPicasso                  = '2.71828'
 
     /* Test Libraries */
-    final def vJUnit = '4.12'
-    final def vSupportTestEspresso = '3.1.1'
-    final def vSupportTestRunner = '1.1.1'
+    final def vJUnit                = '4.12'
+    final def vSupportTestEspresso  = '3.1.1'
+    final def vSupportTestRunner    = '1.1.1'
 
 
     androidSupportLibrary = [
             appCompat       : "androidx.appcompat:appcompat:$vAppCompat",
             constraintLayout: "androidx.constraintlayout:constraintlayout:$vConstraintLayout",
-
     ]
 
     archLifecycle = [
-            lifeCycle: "androidx.lifecycle:lifecycle-viewmodel:$vLifeCycleKTX"
+            lifeCycle           : "androidx.lifecycle:lifecycle-viewmodel:$vLifeCycleKTX",
+            lifecycleExtensions : "androidx.lifecycle:lifecycle-extensions:$vLifeCycleKTX"
     ]
 
     androidLibraries = [
             multiDex     : "androidx.multidex:multidex:$vMultiDex",
             supportDesign: "com.google.android.material:material:$vSupport"
-
     ]
 
     rxJavaDependencies = [
@@ -69,18 +69,25 @@ ext {
 
     dagger = [
             dagger                        : "com.google.dagger:dagger:$vDagger",
-            daggerCompiler                : "com.google.dagger:dagger-compiler:$vDagger",
+            daggerAndroidSupport          : "com.google.dagger:dagger-android-support:$vDagger",
             androidTestAnnotationProcessor: "com.google.dagger:dagger-compiler:$vDagger",
             testAnnotationProcessor       : "com.google.dagger:dagger-compiler:$vDagger",
-            debugAnnotationProcessor      : "com.google.dagger:dagger-compiler:$vDagger"
+            debugAnnotationProcessor      : "com.google.dagger:dagger-compiler:$vDagger",
+    ]
+
+    daggerKapt = [
+            daggerCompiler                : "com.google.dagger:dagger-compiler:$vDagger",
+            daggerAndroidProcessor        : "com.google.dagger:dagger-android-processor:$vDagger"
     ]
 
     libs = [
-            circleImageview : "de.hdodenhof:circleimageview:$vCircleImageView",
-            expandableLayout: "net.cachapa.expandablelayout:expandablelayout:$vExpandableLayout",
-            stetho          : "com.facebook.stetho:stetho:$vStetho",
-            stethoOkHttp    : "com.facebook.stetho:stetho-okhttp3:$vStetho",
-            dagger          : dagger.dagger
+            picasso             : "com.squareup.picasso:picasso:$vPicasso",
+            circleImageview     : "de.hdodenhof:circleimageview:$vCircleImageView",
+            expandableLayout    : "net.cachapa.expandablelayout:expandablelayout:$vExpandableLayout",
+            stetho              : "com.facebook.stetho:stetho:$vStetho",
+            stethoOkHttp        : "com.facebook.stetho:stetho-okhttp3:$vStetho",
+            dagger              : dagger.dagger,
+            daggerAndroidSupport: dagger.daggerAndroidSupport
     ]
 
     kotlin = [
@@ -116,6 +123,7 @@ ext {
             networkDependencies  : networkDependencies.values(),
             kotlin               : kotlin.values(),
             testLibs             : testLibs.values(),
-            archLifecycle        : archLifecycle.values()
+            archLifecycle        : archLifecycle.values(),
+            libsDependencies     : libs.values(),
     ]
 }

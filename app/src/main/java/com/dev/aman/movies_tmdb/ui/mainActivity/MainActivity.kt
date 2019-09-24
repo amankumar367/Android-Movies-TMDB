@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         setViewPager()
         setBottomViewListener()
+        setViewPagerListener()
 
     }
 

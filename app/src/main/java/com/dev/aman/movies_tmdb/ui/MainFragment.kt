@@ -22,7 +22,7 @@ class MainFragment : Fragment() {
     }
 
     companion object{
-        fun mainFragmentInstance() : MainFragment{
+        fun mainFragmentInstance() : MainFragment {
             return MainFragment()
         }
     }

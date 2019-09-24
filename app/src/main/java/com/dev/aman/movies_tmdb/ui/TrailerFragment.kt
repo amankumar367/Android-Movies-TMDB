@@ -22,7 +22,7 @@ class TrailerFragment : Fragment() {
     }
 
     companion object{
-        fun trailerFragmentInstance() : TrailerFragment{
+        fun trailerFragmentInstance() : TrailerFragment {
             return TrailerFragment()
         }
     }

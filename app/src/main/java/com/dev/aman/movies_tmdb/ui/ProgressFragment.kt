@@ -22,7 +22,7 @@ class ProgressFragment : Fragment() {
     }
 
     companion object{
-        fun progressFragmentInstance() : ProgressFragment{
+        fun progressFragmentInstance() : ProgressFragment {
             return ProgressFragment()
         }
     }

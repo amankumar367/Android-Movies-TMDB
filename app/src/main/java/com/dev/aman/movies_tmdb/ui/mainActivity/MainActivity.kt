@@ -13,13 +13,11 @@ class MainActivity : AppCompatActivity() {
 
         setViewPager()
         setBottomViewListener()
-        setViewPagerListener()
 
     }
 
     private fun setViewPager() {
-        viewPager.adapter =
-            MainPagerAdapter(supportFragmentManager)
+        viewPager.adapter = MainPagerAdapter(supportFragmentManager)
         viewPager.offscreenPageLimit = 2
     }
 

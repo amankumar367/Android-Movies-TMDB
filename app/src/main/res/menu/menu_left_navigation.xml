@@ -5,7 +5,7 @@
         android:id="@+id/top_group"
         android:checkableBehavior="single">
         <item
-                android:id="@+id/home"
+                android:id="@+id/ln_home"
                 android:icon="@drawable/ic_home"
                 android:title="@string/bn_home" />
     </group>
@@ -14,19 +14,19 @@
             android:id="@+id/middle_group"
             android:checkableBehavior="single">
         <item
-                android:id="@+id/movies"
+                android:id="@+id/ln_movies"
                 android:icon="@drawable/ic_movie"
                 android:title="@string/movies" />
         <item
-                android:id="@+id/tv_shows"
+                android:id="@+id/ln_tv_shows"
                 android:icon="@drawable/ic_tv_shows"
                 android:title="@string/tv_shows" />
         <item
-                android:id="@+id/dicover"
+                android:id="@+id/ln_dicover"
                 android:icon="@drawable/ic_discover"
                 android:title="@string/discover" />
         <item
-                android:id="@+id/popular_people"
+                android:id="@+id/ln_popular_people"
                 android:icon="@drawable/ic_people"
                 android:title="@string/popular_people" />
     </group>
@@ -35,31 +35,31 @@
             android:id="@+id/sub_middle_group"
             android:checkableBehavior="single">
         <item
-                android:id="@+id/watchlist"
+                android:id="@+id/ln_watchlist"
                 android:icon="@drawable/ic_watch_list"
                 android:title="@string/watchlist" />
         <item
-                android:id="@+id/history"
+                android:id="@+id/ln_history"
                 android:icon="@drawable/ic_history"
                 android:title="@string/history" />
         <item
-                android:id="@+id/collection"
+                android:id="@+id/ln_collection"
                 android:icon="@drawable/ic_favorite"
                 android:title="@string/collection" />
         <item
-                android:id="@+id/ratings"
+                android:id="@+id/ln_ratings"
                 android:icon="@drawable/ic_ratings"
                 android:title="@string/ratings" />
         <item
-                android:id="@+id/personal_list"
+                android:id="@+id/ln_personal_list"
                 android:icon="@drawable/ic_personal_list"
                 android:title="@string/personal_list" />
         <item
-                android:id="@+id/reminders"
+                android:id="@+id/ln_reminders"
                 android:icon="@drawable/ic_reminders"
                 android:title="@string/reminders" />
         <item
-                android:id="@+id/hidden_items"
+                android:id="@+id/ln_hidden_items"
                 android:icon="@drawable/ic_hidden_item"
                 android:title="@string/hidden_items" />
     </group>
@@ -68,11 +68,11 @@
             android:id="@+id/bottom_group"
             android:checkableBehavior="single">
         <item
-                android:id="@+id/setting"
+                android:id="@+id/ln_setting"
                 android:icon="@drawable/ic_settings"
                 android:title="@string/settings" />
         <item
-                android:id="@+id/helps_and_feedback"
+                android:id="@+id/ln_helps_and_feedback"
                 android:icon="@drawable/ic_help_and_feedback"
                 android:title="@string/help_feedback" />
     </group>

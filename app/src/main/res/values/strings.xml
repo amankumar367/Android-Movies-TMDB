@@ -22,4 +22,6 @@
     <string name="help_feedback"><![CDATA[Help & feedback]]></string>
     <string name="ln_title">Moviebase</string>
     <string name="null_string">null</string>
+    <string name="drawer_open">OPEN</string>
+    <string name="drawer_close">CLOSE</string>
 </resources>

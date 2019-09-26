@@ -7,7 +7,7 @@
 
     <item
             android:id="@+id/bn_trailer"
-            android:icon="@drawable/ic_trailer"
+            android:icon="@drawable/ic_trailers"
             android:title="@string/bn_trailer" />
 
     <item

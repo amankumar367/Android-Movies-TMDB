@@ -58,7 +58,7 @@
             android:fitsSystemWindows="true"
             android:background="@color/colorPrimaryDark"
             app:itemTextColor="@drawable/selected_ln_item"
-            app:itemIconTint="@drawable/selected_ln_item"
+            app:itemIconTint="@drawable/selected_bn_item"
             app:headerLayout="@layout/navigation_header"
             app:menu="@menu/menu_left_navigation"/>
 

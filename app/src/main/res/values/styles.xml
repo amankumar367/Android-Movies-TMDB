@@ -12,7 +12,7 @@
 
     <!-- New Style for Change Drawer Icon color -->
     <style name="drawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/white</item>
+        <item name="color">@color/white_10</item>
     </style>
 
 </resources>

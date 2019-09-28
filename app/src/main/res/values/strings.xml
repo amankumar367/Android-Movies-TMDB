@@ -24,4 +24,12 @@
     <string name="null_string">null</string>
     <string name="drawer_open">OPEN</string>
     <string name="drawer_close">CLOSE</string>
+
+    // Home Strings
+    <string name="trending">Trending</string>
+    <string name="more">More</string>
+    <string name="movies_caps">MOVIES</string>
+    <string name="tvShows_caps">TV SHOWS</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="top_picks">Top Picks</string>
 </resources>

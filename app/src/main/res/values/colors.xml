@@ -6,5 +6,11 @@
 
     // Style
     <color name="app_background">#18212E</color>
-    <color name="white">#EDFFFFFF</color>
+    <color name="white_10">#EDFFFFFF</color>
+    <color name="black_10">#6C000000</color>
+
+    // Blue Gray #5A7D8D
+    <color name="bluegray_80">#5A7D8D</color>
+    <color name="bluegray_10">#ADBEC6</color>
+
 </resources>

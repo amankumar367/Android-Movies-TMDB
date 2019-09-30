@@ -6,30 +6,26 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:background="@color/app_background">
 
-    <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_single_grid_poster"
+
+
+    <!-- For Image corner radius use this shape in layout xml,
+    To do the actual clipping, Android introduced a property called
+    android:clipToOutline
+    But due to a bug, this property is not recognized and will throw a compiler error if you use it in xml.
+    No worries, still you can call <ImageView_ID>.setClipToOutline(true) from Java/Kotlin code. -->
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_single_grid_poster"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="true"
-            app:layout_constraintDimensionRatio="w,2:3"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_poster_corner"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_single_grid_poster"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/image_placeholder" />
-
-    </androidx.cardview.widget.CardView>
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="w,2:3"
+            tools:src="@drawable/image_placeholder" />
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_single_rating"
@@ -40,9 +36,9 @@
             android:padding="2dp"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
-            app:layout_constraintBottom_toBottomOf="@+id/cardview_single_grid_poster"
-            app:layout_constraintEnd_toEndOf="@+id/cardview_single_grid_poster"
-            app:layout_constraintTop_toTopOf="@+id/cardview_single_grid_poster"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_single_grid_poster"
+            app:layout_constraintEnd_toEndOf="@+id/iv_single_grid_poster"
+            app:layout_constraintTop_toTopOf="@+id/iv_single_grid_poster"
             app:layout_constraintVertical_bias="0.043"
             style="@style/TextAppearance.AppCompat.Button"
             tools:text="7.7" />
@@ -62,7 +58,7 @@
             android:textColor="@color/bluegray_10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/cardview_single_grid_poster"
+            app:layout_constraintTop_toBottomOf="@+id/iv_single_grid_poster"
             tools:text="Spider Man: Far from home" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -71,9 +67,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:tint="@color/bluegray_10"
-            app:layout_constraintEnd_toEndOf="@+id/cardview_single_grid_poster"
-            app:layout_constraintStart_toEndOf="@+id/cardview_single_grid_poster"
-            app:layout_constraintTop_toBottomOf="@+id/cardview_single_grid_poster"
+            app:layout_constraintEnd_toEndOf="@+id/iv_single_grid_poster"
+            app:layout_constraintStart_toEndOf="@+id/iv_single_grid_poster"
+            app:layout_constraintTop_toBottomOf="@+id/iv_single_grid_poster"
             app:srcCompat="@drawable/ic_more" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setUpActionBar() {
-        toolbar.title = "Home"
-        toolbar.setTitleTextColor(resources.getColor(R.color.white_10))
-        toolbar.navigationIcon
         setSupportActionBar(toolbar)
 
         val drawerToggle = ActionBarDrawerToggle(

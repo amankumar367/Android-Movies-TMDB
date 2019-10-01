@@ -7,16 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import com.dev.aman.movies_tmdb.BaseFragment
 import com.dev.aman.movies_tmdb.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
 
     private lateinit var root : View
 

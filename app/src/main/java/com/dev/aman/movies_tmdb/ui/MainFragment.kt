@@ -8,14 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import com.dev.aman.movies_tmdb.BaseFragment
 import com.dev.aman.movies_tmdb.R
+import com.dev.aman.movies_tmdb.api.data.TrendingMovies
+import com.dev.aman.movies_tmdb.api.repo.TrendingMoviesRepo
+import com.dev.aman.movies_tmdb.api.retrofit.ApiCallback
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 
-class MainFragment : BaseFragment() {
+class MainFragment : DaggerFragment() {
 
     private lateinit var root : View
+    private val trendingMoviesRepoI = TrendingMoviesRepo()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +29,7 @@ class MainFragment : BaseFragment() {
         root = inflater.inflate(R.layout.fragment_main, container, false)
 
         setScrollViewListner()
+        getTrendingMoviesList()
 
         return root
     }
@@ -40,6 +45,18 @@ class MainFragment : BaseFragment() {
                 (activity as AppCompatActivity).supportActionBar!!.show()
             }
         }
+    }
+
+    private fun getTrendingMoviesList() {
+        trendingMoviesRepoI.getTrendingMovies(object : ApiCallback<TrendingMovies>{
+            override fun onSuccess(t: TrendingMovies) {
+                Log.d(TAG, "Success Response : $t")
+            }
+
+            override fun onFailure(message: String) {
+                Log.d(TAG, "Failure Response : $message")
+            }
+        })
     }
 
     companion object{

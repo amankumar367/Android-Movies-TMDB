@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.dev.aman.movies_tmdb.R
+import dagger.android.support.DaggerFragment
 
-class ProgressFragment : Fragment() {
+class ProgressFragment : DaggerFragment() {
 
     private lateinit var root : View
 

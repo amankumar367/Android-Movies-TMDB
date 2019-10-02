@@ -1,5 +1,6 @@
 package com.dev.aman.movies_tmdb.di
 
+import com.dev.aman.movies_tmdb.utils.ApiConstants
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -14,7 +15,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit() : Retrofit {
         return Retrofit.Builder()
-            .baseUrl("XXXXXX")
+            .baseUrl(ApiConstants.BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

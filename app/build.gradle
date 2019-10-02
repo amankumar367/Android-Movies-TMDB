@@ -19,6 +19,8 @@ android {
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "TMDB_API_KEY", TMDB_API_KEY
     }
 
     dataBinding {

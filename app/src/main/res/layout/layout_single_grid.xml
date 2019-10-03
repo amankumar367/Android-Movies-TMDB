@@ -57,12 +57,12 @@
             android:textSize="12sp"
             android:textColor="@color/bluegray_10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/iv_vertical_three_dot"
             app:layout_constraintTop_toBottomOf="@+id/iv_single_grid_poster"
             tools:text="Spider Man: Far from home" />
 
     <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_vertical_three_dot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

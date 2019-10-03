@@ -1,8 +1,8 @@
 package com.dev.aman.movies_tmdb.di.main
 
-import com.dev.aman.movies_tmdb.ui.MainFragment
-import com.dev.aman.movies_tmdb.ui.ProgressFragment
-import com.dev.aman.movies_tmdb.ui.TrailerFragment
+import com.dev.aman.movies_tmdb.ui.main.mainFragment.MainFragment
+import com.dev.aman.movies_tmdb.ui.main.progressFragment.ProgressFragment
+import com.dev.aman.movies_tmdb.ui.main.trailerFragment.TrailerFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

@@ -4,6 +4,7 @@ import com.dev.aman.movies_tmdb.BuildConfig
 
 object ApiConstants {
     const val BASE_URL = "https://api.themoviedb.org/3/"
+    const val BASE_URL_IMAGE = "http://image.tmdb.org/t/p/w185"
 
     // Trending API URL
     const val TRENDING_WEEKS_ALL = "trending/all/week?api_key=${BuildConfig.TMDB_API_KEY}"

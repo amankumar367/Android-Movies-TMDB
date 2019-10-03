@@ -1,4 +1,4 @@
-package com.dev.aman.movies_tmdb.ui
+package com.dev.aman.movies_tmdb.ui.main.progressFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

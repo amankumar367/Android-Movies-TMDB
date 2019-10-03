@@ -1,4 +1,4 @@
-package com.dev.aman.movies_tmdb.ui.mainActivity
+package com.dev.aman.movies_tmdb.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem

@@ -51,12 +51,21 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_trending_movie_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+        <ProgressBar
+                android:id="@+id/pb_trending_movies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_trending_movies"
+                app:layout_constraintEnd_toEndOf="@+id/rv_trending_movies"
+                app:layout_constraintStart_toStartOf="@+id/rv_trending_movies"
+                app:layout_constraintTop_toTopOf="@+id/rv_trending_movies" />
+
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_trending_movies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_trending_movie_title" />
 
@@ -103,8 +112,8 @@
                 android:id="@+id/rv_trending_tvShows"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_trending_tvShows_title" />
 
@@ -151,8 +160,8 @@
                 android:id="@+id/rv_now_playing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_now_playing_title" />
 
@@ -195,8 +204,8 @@
                 android:id="@+id/rv_top_picks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_top_picks_title" />
 

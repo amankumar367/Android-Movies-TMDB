@@ -1,13 +1,11 @@
-package com.dev.aman.movies_tmdb.ui.mainActivity
+package com.dev.aman.movies_tmdb.ui.main
 
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.PagerAdapter
-import com.dev.aman.movies_tmdb.ui.MainFragment
-import com.dev.aman.movies_tmdb.ui.ProgressFragment
-import com.dev.aman.movies_tmdb.ui.TrailerFragment
+import com.dev.aman.movies_tmdb.ui.main.mainFragment.MainFragment
+import com.dev.aman.movies_tmdb.ui.main.progressFragment.ProgressFragment
+import com.dev.aman.movies_tmdb.ui.main.trailerFragment.TrailerFragment
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 

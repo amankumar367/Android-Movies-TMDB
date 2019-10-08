@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="85dp"
                 android:text="@string/trending"
                 android:textColor="@android:color/background_light"
                 android:textSize="20sp"
@@ -107,6 +107,15 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_trending_tvShows_title"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+        <ProgressBar
+                android:id="@+id/pb_trending_tvshows"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_trending_tvShows"
+                app:layout_constraintEnd_toEndOf="@+id/rv_trending_tvShows"
+                app:layout_constraintStart_toStartOf="@+id/rv_trending_tvShows"
+                app:layout_constraintTop_toTopOf="@+id/rv_trending_tvShows" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_trending_tvShows"

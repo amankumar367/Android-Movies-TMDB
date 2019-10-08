@@ -11,11 +11,11 @@ import com.dev.aman.movies_tmdb.utils.ApiConstants
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_single_grid.view.*
 
-class RecyclerViewAdapter(var results: List<TrendingMovies.Result?>)
-    : RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewViewHolder>() {
+class TrendingMoviesAdapter(var results: List<TrendingMovies.Result?>)
+    : RecyclerView.Adapter<TrendingMoviesAdapter.TrendingMoviesVH>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewViewHolder {
-        return RecyclerViewViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingMoviesVH {
+        return TrendingMoviesVH(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.layout_single_grid,
                 parent,
@@ -26,12 +26,12 @@ class RecyclerViewAdapter(var results: List<TrendingMovies.Result?>)
         return results.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TrendingMoviesVH, position: Int) {
         holder.bind(results[position]!!)
     }
 
 
-    class RecyclerViewViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class TrendingMoviesVH(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(result: TrendingMovies.Result) {
             view.tv_single_grid_title.text = result.title
             view.tv_single_rating.text = result.voteAverage.toString()

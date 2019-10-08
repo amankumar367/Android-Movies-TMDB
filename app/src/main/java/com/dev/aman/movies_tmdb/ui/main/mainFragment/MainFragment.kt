@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
 import com.dev.aman.movies_tmdb.api.data.TrendingMovies
+import com.dev.aman.movies_tmdb.api.data.TrendingTVShows
 import com.dev.aman.movies_tmdb.api.repo.TrendingMoviesRepo
+import com.dev.aman.movies_tmdb.api.repo.TrendingTVShowsRepo
 import com.dev.aman.movies_tmdb.api.retrofit.ApiCallback
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -22,6 +24,7 @@ class MainFragment : DaggerFragment() {
 
     private lateinit var root : View
     private val trendingMoviesRepoI = TrendingMoviesRepo()
+    private val trendingTVShowsRepoI = TrendingTVShowsRepo()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +35,7 @@ class MainFragment : DaggerFragment() {
 
         setScrollViewListner()
         getTrendingMoviesList()
+        getTrendingTVShowsList()
 
         return root
     }
@@ -53,22 +57,45 @@ class MainFragment : DaggerFragment() {
         root.pb_trending_movies.visibility = View.VISIBLE
         trendingMoviesRepoI.getTrendingMovies(object : ApiCallback<TrendingMovies>{
             override fun onSuccess(t: TrendingMovies) {
-                Log.d(TAG, "Success Response : $t")
-                setDetailsToRecyclerView(t)
+                Log.d(TAG, "Trendnig Movies Success Response : $t")
+                setMoviesRecyclerView(t)
             }
 
             override fun onFailure(message: String) {
-                Log.d(TAG, "Failure Response : $message")
+                Log.d(TAG, "Trendnig Movies Failure Response : $message")
             }
         })
     }
 
-    private fun setDetailsToRecyclerView(trendingMovies: TrendingMovies) {
+    private fun getTrendingTVShowsList() {
+        root.pb_trending_tvshows.visibility = View.VISIBLE
+        trendingTVShowsRepoI.getTrendingTVShows(object :ApiCallback<TrendingTVShows>{
+            override fun onSuccess(t: TrendingTVShows) {
+                Log.d(TAG, "Trendnig TVShows Success Response : $t")
+                setTVShowsRecyclerView(t)
+            }
+
+            override fun onFailure(message: String) {
+                Log.d(TAG, "Trendnig TVShows Failure Response : $message")
+            }
+        })
+
+    }
+
+    private fun setMoviesRecyclerView(trendingMovies: TrendingMovies) {
         root.pb_trending_movies.visibility = View.INVISIBLE
         root.rv_trending_movies.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-        root.rv_trending_movies.adapter = trendingMovies.results?.let { RecyclerViewAdapter(it) }
+        root.rv_trending_movies.adapter = trendingMovies.results?.let { TrendingMoviesAdapter(it) }
+    }
+
+    private fun setTVShowsRecyclerView(trendingTVShows: TrendingTVShows) {
+        root.pb_trending_tvshows.visibility = View.INVISIBLE
+        root.rv_trending_tvShows.layoutManager =
+            LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+
+        root.rv_trending_tvShows.adapter = trendingTVShows.results?.let { TrendingTVShowsAdapter(it) }
     }
 
     companion object{

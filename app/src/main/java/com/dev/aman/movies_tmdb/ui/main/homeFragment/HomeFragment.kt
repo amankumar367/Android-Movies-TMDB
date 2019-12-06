@@ -1,4 +1,4 @@
-package com.dev.aman.movies_tmdb.ui.main.mainFragment
+package com.dev.aman.movies_tmdb.ui.main.homeFragment
 
 import android.annotation.TargetApi
 import android.os.Build
@@ -17,10 +17,10 @@ import com.dev.aman.movies_tmdb.api.repo.TrendingMoviesRepo
 import com.dev.aman.movies_tmdb.api.repo.TrendingTVShowsRepo
 import com.dev.aman.movies_tmdb.api.retrofit.ApiCallback
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
-class MainFragment : DaggerFragment() {
+class HomeFragment : DaggerFragment() {
 
     private lateinit var root : View
     private val trendingMoviesRepoI = TrendingMoviesRepo()
@@ -31,7 +31,7 @@ class MainFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root = inflater.inflate(R.layout.fragment_main, container, false)
+        root = inflater.inflate(R.layout.fragment_home, container, false)
 
         setScrollViewListner()
         getTrendingMoviesList()
@@ -99,10 +99,10 @@ class MainFragment : DaggerFragment() {
     }
 
     companion object{
-        private var TAG = MainFragment::class.java.simpleName
+        private var TAG = HomeFragment::class.java.simpleName
 
-        fun mainFragmentInstance() : MainFragment {
-            return MainFragment()
+        fun homeFragmentInstance() : HomeFragment {
+            return HomeFragment()
         }
     }
 }

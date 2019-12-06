@@ -1,4 +1,4 @@
-package com.dev.aman.movies_tmdb.ui.main.mainFragment
+package com.dev.aman.movies_tmdb.ui.main.homeFragment
 
 import android.view.LayoutInflater
 import android.view.View

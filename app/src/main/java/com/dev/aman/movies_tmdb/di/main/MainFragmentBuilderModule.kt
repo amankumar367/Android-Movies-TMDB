@@ -1,6 +1,6 @@
 package com.dev.aman.movies_tmdb.di.main
 
-import com.dev.aman.movies_tmdb.ui.main.mainFragment.MainFragment
+import com.dev.aman.movies_tmdb.ui.main.homeFragment.HomeFragment
 import com.dev.aman.movies_tmdb.ui.main.progressFragment.ProgressFragment
 import com.dev.aman.movies_tmdb.ui.main.trailerFragment.TrailerFragment
 import dagger.Module
@@ -10,7 +10,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class MainFragmentBuilderModule {
 
     @ContributesAndroidInjector
-    abstract fun mainFragmentProvider() : MainFragment
+    abstract fun mainFragmentProvider() : HomeFragment
 
     @ContributesAndroidInjector
     abstract fun progressFragmentProvider() : ProgressFragment

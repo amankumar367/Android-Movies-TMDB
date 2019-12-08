@@ -1,9 +1,11 @@
-package com.dev.aman.movies_tmdb.api.data
+package com.dev.aman.movies_tmdb.data.model
 
 
 import com.google.gson.annotations.SerializedName
 
-data class TrendingMovies(
+data class NowPlaying(
+    @SerializedName("dates")
+    val dates: Dates?,
     @SerializedName("page")
     val page: Int?,
     @SerializedName("results")
@@ -13,6 +15,13 @@ data class TrendingMovies(
     @SerializedName("total_results")
     val totalResults: Int?
 ) {
+    data class Dates(
+        @SerializedName("maximum")
+        val maximum: String?,
+        @SerializedName("minimum")
+        val minimum: String?
+    )
+
     data class Result(
         @SerializedName("adult")
         val adult: Boolean?,
@@ -22,8 +31,6 @@ data class TrendingMovies(
         val genreIds: List<Int?>?,
         @SerializedName("id")
         val id: Int?,
-        @SerializedName("media_type")
-        val mediaType: String?,
         @SerializedName("original_language")
         val originalLanguage: String?,
         @SerializedName("original_title")
@@ -41,7 +48,7 @@ data class TrendingMovies(
         @SerializedName("video")
         val video: Boolean?,
         @SerializedName("vote_average")
-        val voteAverage: Double?,
+        val voteAverage: Int?,
         @SerializedName("vote_count")
         val voteCount: Int?
     )

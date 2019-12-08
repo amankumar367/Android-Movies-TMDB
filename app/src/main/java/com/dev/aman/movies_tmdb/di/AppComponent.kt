@@ -2,9 +2,8 @@ package com.dev.aman.movies_tmdb.di
 
 import android.app.Application
 import com.dev.aman.movies_tmdb.BaseApplication
-import com.dev.aman.movies_tmdb.api.repo.TrendingMoviesRepo
-import com.dev.aman.movies_tmdb.api.repo.TrendingTVShowsRepo
-import com.dev.aman.movies_tmdb.di.main.MainFragmentBuilderModule
+import com.dev.aman.movies_tmdb.data.repo.TrendingMoviesRepo
+import com.dev.aman.movies_tmdb.data.repo.TrendingTVShowsRepo
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

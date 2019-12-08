@@ -1,4 +1,4 @@
-package com.dev.aman.movies_tmdb.ui.main.homeFragment
+package com.dev.aman.movies_tmdb.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
-import com.dev.aman.movies_tmdb.api.data.TrendingMovies
+import com.dev.aman.movies_tmdb.data.model.TrendingMovies
 import com.dev.aman.movies_tmdb.utils.ApiConstants
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_single_grid.view.*
@@ -19,7 +19,9 @@ class TrendingMoviesAdapter(var results: List<TrendingMovies.Result?>)
             LayoutInflater.from(parent.context).inflate(
                 R.layout.layout_single_grid,
                 parent,
-                false))
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {

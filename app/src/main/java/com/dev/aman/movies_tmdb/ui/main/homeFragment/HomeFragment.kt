@@ -13,12 +13,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
-import com.dev.aman.movies_tmdb.api.data.TrendingMovies
-import com.dev.aman.movies_tmdb.api.data.TrendingTVShows
-import com.dev.aman.movies_tmdb.api.repo.TrendingMoviesRepo
-import com.dev.aman.movies_tmdb.api.repo.TrendingTVShowsRepo
+import com.dev.aman.movies_tmdb.data.model.TrendingMovies
+import com.dev.aman.movies_tmdb.data.model.TrendingTVShows
+import com.dev.aman.movies_tmdb.data.repo.TrendingMoviesRepo
+import com.dev.aman.movies_tmdb.data.repo.TrendingTVShowsRepo
 import com.dev.aman.movies_tmdb.extentions.invisible
 import com.dev.aman.movies_tmdb.extentions.visible
+import com.dev.aman.movies_tmdb.ui.adapter.TrendingMoviesAdapter
+import com.dev.aman.movies_tmdb.ui.adapter.TrendingTVShowsAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.view.*
 

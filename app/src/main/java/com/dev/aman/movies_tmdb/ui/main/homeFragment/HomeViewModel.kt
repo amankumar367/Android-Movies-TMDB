@@ -3,11 +3,11 @@ package com.dev.aman.movies_tmdb.ui.main.homeFragment
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dev.aman.movies_tmdb.api.data.TrendingMovies
-import com.dev.aman.movies_tmdb.api.data.TrendingTVShows
-import com.dev.aman.movies_tmdb.api.repo.TrendingMoviesRepoI
-import com.dev.aman.movies_tmdb.api.repo.TrendingTVShowsRepoI
-import com.dev.aman.movies_tmdb.api.retrofit.ApiCallback
+import com.dev.aman.movies_tmdb.data.model.TrendingMovies
+import com.dev.aman.movies_tmdb.data.model.TrendingTVShows
+import com.dev.aman.movies_tmdb.data.repo.TrendingMoviesRepoI
+import com.dev.aman.movies_tmdb.data.repo.TrendingTVShowsRepoI
+import com.dev.aman.movies_tmdb.network.ApiCallback
 import io.reactivex.disposables.CompositeDisposable
 
 class HomeViewModel: ViewModel() {
@@ -37,7 +37,7 @@ class HomeViewModel: ViewModel() {
         Log.d(TAG, " >>> Trying to get trending movies")
 
         state = state.copy(loading = true, eventType = HomeState.EventType.TRENDING_MOVIE)
-        trendingMoviesRepoI.getTrendingMovies(object : ApiCallback<TrendingMovies>{
+        trendingMoviesRepoI.getTrendingMovies(object : ApiCallback<TrendingMovies> {
             override fun onSuccess(t: TrendingMovies) {
                 state = state.copy(
                     loading = false,
@@ -65,7 +65,7 @@ class HomeViewModel: ViewModel() {
         Log.d(TAG, " >>> Trying to get trending TV shows")
 
         state = state.copy(loading = true, eventType = HomeState.EventType.TRENDING_TVSHOWS)
-        trendingTVShowsRepoI.getTrendingTVShows(object : ApiCallback<TrendingTVShows>{
+        trendingTVShowsRepoI.getTrendingTVShows(object : ApiCallback<TrendingTVShows> {
             override fun onSuccess(t: TrendingTVShows) {
                 state = state.copy(
                     loading = false,

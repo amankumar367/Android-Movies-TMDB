@@ -1,4 +1,4 @@
-package com.dev.aman.movies_tmdb.api.data
+package com.dev.aman.movies_tmdb.data.model
 
 
 import com.google.gson.annotations.SerializedName

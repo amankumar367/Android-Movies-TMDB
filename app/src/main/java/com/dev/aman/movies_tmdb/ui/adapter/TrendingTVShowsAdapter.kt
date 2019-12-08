@@ -1,11 +1,11 @@
-package com.dev.aman.movies_tmdb.ui.main.homeFragment
+package com.dev.aman.movies_tmdb.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
-import com.dev.aman.movies_tmdb.api.data.TrendingTVShows
+import com.dev.aman.movies_tmdb.data.model.TrendingTVShows
 import com.dev.aman.movies_tmdb.utils.ApiConstants
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_single_grid.view.*
@@ -15,7 +15,8 @@ class TrendingTVShowsAdapter(var results: List<TrendingTVShows.Result?>)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingTVShowsVH {
         return TrendingTVShowsVH(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.layout_single_grid, parent, false))
+                .inflate(R.layout.layout_single_grid, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {

@@ -1,4 +1,4 @@
-package com.dev.aman.movies_tmdb.api.retrofit
+package com.dev.aman.movies_tmdb.network
 
 interface ApiCallback<T> {
     fun onSuccess(t: T)

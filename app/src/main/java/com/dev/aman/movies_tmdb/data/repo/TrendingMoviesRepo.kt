@@ -1,9 +1,9 @@
-package com.dev.aman.movies_tmdb.api.repo
+package com.dev.aman.movies_tmdb.data.repo
 
 import com.dev.aman.movies_tmdb.BaseApplication
-import com.dev.aman.movies_tmdb.api.data.TrendingTVShows
-import com.dev.aman.movies_tmdb.api.retrofit.ApiCallback
-import com.dev.aman.movies_tmdb.api.retrofit.ApiInterface
+import com.dev.aman.movies_tmdb.data.model.TrendingMovies
+import com.dev.aman.movies_tmdb.network.ApiCallback
+import com.dev.aman.movies_tmdb.network.ApiInterface
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -11,30 +11,30 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class TrendingTVShowsRepo : TrendingTVShowsRepoI {
+class TrendingMoviesRepo : TrendingMoviesRepoI {
 
     @Inject
     lateinit var retrofit : Retrofit
 
-    private var trendingTVShowsApi: ApiInterface? = null
+    private var trendingMoviesApi: ApiInterface? = null
 
     init {
         BaseApplication.getAppComponent()!!.inject(this)
-        trendingTVShowsApi = retrofit.create(ApiInterface::class.java)
+        trendingMoviesApi = retrofit.create(ApiInterface::class.java)
     }
 
-    override fun getTrendingTVShows(apiCallback: ApiCallback<TrendingTVShows>) {
-        trendingTVShowsApi!!.getTrendingWeekTVShows()
+    override fun getTrendingMovies(apiCallback: ApiCallback<TrendingMovies>) {
+        trendingMoviesApi!!.getTrendingWeekMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<TrendingTVShows> {
+            .subscribe(object : Observer<TrendingMovies> {
                 override fun onComplete() {
                 }
 
                 override fun onSubscribe(d: Disposable) {
                 }
 
-                override fun onNext(t: TrendingTVShows) {
+                override fun onNext(t: TrendingMovies) {
                     apiCallback.onSuccess(t)
                 }
 
@@ -42,6 +42,5 @@ class TrendingTVShowsRepo : TrendingTVShowsRepoI {
                     apiCallback.onFailure(e.localizedMessage!!)
                 }
             })
-
     }
 }

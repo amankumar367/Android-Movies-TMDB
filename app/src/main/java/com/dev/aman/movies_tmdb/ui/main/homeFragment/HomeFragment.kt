@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
@@ -15,7 +17,8 @@ import com.dev.aman.movies_tmdb.api.data.TrendingMovies
 import com.dev.aman.movies_tmdb.api.data.TrendingTVShows
 import com.dev.aman.movies_tmdb.api.repo.TrendingMoviesRepo
 import com.dev.aman.movies_tmdb.api.repo.TrendingTVShowsRepo
-import com.dev.aman.movies_tmdb.api.retrofit.ApiCallback
+import com.dev.aman.movies_tmdb.extentions.invisible
+import com.dev.aman.movies_tmdb.extentions.visible
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -23,8 +26,9 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class HomeFragment : DaggerFragment() {
 
     private lateinit var root : View
-    private val trendingMoviesRepoI = TrendingMoviesRepo()
-    private val trendingTVShowsRepoI = TrendingTVShowsRepo()
+    private lateinit var homeViewModel: HomeViewModel
+    private val trendingMoviesRepo = TrendingMoviesRepo()
+    private val trendingTVShowsRepo = TrendingTVShowsRepo()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,11 +37,58 @@ class HomeFragment : DaggerFragment() {
     ): View? {
         root = inflater.inflate(R.layout.fragment_home, container, false)
 
+        init()
+        setObserver()
+        loadData()
+
         setScrollViewListner()
-        getTrendingMoviesList()
-        getTrendingTVShowsList()
 
         return root
+    }
+
+    private fun init() {
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        homeViewModel.setRepository(trendingMoviesRepo, trendingTVShowsRepo)
+    }
+
+    private fun setObserver() {
+        homeViewModel.stateObservable.observe(this, Observer {
+            updateView(it)
+        })
+    }
+
+    private fun updateView(state: HomeState?) {
+        when {
+            state!!.loading -> showLoadingByEvent(state)
+            state.success -> showDataByEvent(state)
+            state.failure -> showFailureByEvent(state)
+        }
+    }
+
+    private fun showLoadingByEvent(state: HomeState) {
+        when (state.eventType) {
+            HomeState.EventType.TRENDING_MOVIE -> showLoading(root.pb_trending_movies)
+            HomeState.EventType.TRENDING_TVSHOWS -> showLoading(root.pb_trending_tvshows)
+        }
+    }
+
+    private fun showDataByEvent(state: HomeState) {
+        when (state.eventType){
+            HomeState.EventType.TRENDING_MOVIE -> setMoviesRecyclerView(state.data as TrendingMovies)
+            HomeState.EventType.TRENDING_TVSHOWS -> setTVShowsRecyclerView(state.data as TrendingTVShows)
+        }
+    }
+
+    private fun showFailureByEvent(state: HomeState) {
+        when (state.eventType) {
+            HomeState.EventType.TRENDING_MOVIE -> {}
+            HomeState.EventType.TRENDING_TVSHOWS -> {}
+        }
+    }
+
+    private fun loadData() {
+        homeViewModel.getTrendingMovies()
+        homeViewModel.getTrendingTVShows()
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -53,37 +104,8 @@ class HomeFragment : DaggerFragment() {
         }
     }
 
-    private fun getTrendingMoviesList() {
-        root.pb_trending_movies.visibility = View.VISIBLE
-        trendingMoviesRepoI.getTrendingMovies(object : ApiCallback<TrendingMovies>{
-            override fun onSuccess(t: TrendingMovies) {
-                Log.d(TAG, "Trendnig Movies Success Response : $t")
-                setMoviesRecyclerView(t)
-            }
-
-            override fun onFailure(message: String) {
-                Log.d(TAG, "Trendnig Movies Failure Response : $message")
-            }
-        })
-    }
-
-    private fun getTrendingTVShowsList() {
-        root.pb_trending_tvshows.visibility = View.VISIBLE
-        trendingTVShowsRepoI.getTrendingTVShows(object :ApiCallback<TrendingTVShows>{
-            override fun onSuccess(t: TrendingTVShows) {
-                Log.d(TAG, "Trendnig TVShows Success Response : $t")
-                setTVShowsRecyclerView(t)
-            }
-
-            override fun onFailure(message: String) {
-                Log.d(TAG, "Trendnig TVShows Failure Response : $message")
-            }
-        })
-
-    }
-
     private fun setMoviesRecyclerView(trendingMovies: TrendingMovies) {
-        root.pb_trending_movies.visibility = View.INVISIBLE
+        hideLoading(root.pb_trending_movies)
         root.rv_trending_movies.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
@@ -91,15 +113,23 @@ class HomeFragment : DaggerFragment() {
     }
 
     private fun setTVShowsRecyclerView(trendingTVShows: TrendingTVShows) {
-        root.pb_trending_tvshows.visibility = View.INVISIBLE
+        hideLoading(root.pb_trending_tvshows)
         root.rv_trending_tvShows.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
         root.rv_trending_tvShows.adapter = trendingTVShows.results?.let { TrendingTVShowsAdapter(it) }
     }
 
+    private fun showLoading(view: View) {
+        view.visible()
+    }
+
+    private fun hideLoading(view: View) {
+        view.invisible()
+    }
+
     companion object{
-        private var TAG = HomeFragment::class.java.simpleName
+        private var TAG = "HomeFragment"
 
         fun homeFragmentInstance() : HomeFragment {
             return HomeFragment()

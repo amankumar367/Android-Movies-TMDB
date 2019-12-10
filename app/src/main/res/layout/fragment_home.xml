@@ -165,6 +165,15 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_now_playing_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+        <ProgressBar
+                android:id="@+id/pb_now_playing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_now_playing"
+                app:layout_constraintEnd_toEndOf="@+id/rv_now_playing"
+                app:layout_constraintStart_toStartOf="@+id/rv_now_playing"
+                app:layout_constraintTop_toTopOf="@+id/rv_now_playing" />
+
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_now_playing"
                 android:layout_width="match_parent"
@@ -174,6 +183,62 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_now_playing_title" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_upcoming_movies_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/upcoming"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_now_playing" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_upcoming_movies_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/movies_caps"
+                android:textColor="@color/bluegray_80"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_upcoming_movies_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_upcoming_movies_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_upcoming_movies_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_upcoming_movies_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="23dp"
+                android:text="@string/more"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_upcoming_movies_subtitle"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <ProgressBar
+                android:id="@+id/pb_upcoming_movies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_upcoming_movies"
+                app:layout_constraintEnd_toEndOf="@+id/rv_upcoming_movies"
+                app:layout_constraintStart_toStartOf="@+id/rv_upcoming_movies"
+                app:layout_constraintTop_toTopOf="@+id/rv_upcoming_movies" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_upcoming_movies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_upcoming_movies_title" />
+
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_top_picks_title"
                 android:layout_width="80dp"
@@ -182,7 +247,7 @@
                 android:layout_marginTop="32dp"
                 android:src="@drawable/ic_netflix"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_now_playing" />
+                app:layout_constraintTop_toBottomOf="@id/rv_upcoming_movies" />
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_top_picks_subtitle"
@@ -208,6 +273,15 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_top_picks_subtitle"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+        <ProgressBar
+                android:id="@+id/pb_top_picks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_top_picks"
+                app:layout_constraintEnd_toEndOf="@+id/rv_top_picks"
+                app:layout_constraintStart_toStartOf="@+id/rv_top_picks"
+                app:layout_constraintTop_toTopOf="@+id/rv_top_picks" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_top_picks"

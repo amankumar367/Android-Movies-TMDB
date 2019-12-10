@@ -32,4 +32,5 @@
     <string name="tvShows_caps">TV SHOWS</string>
     <string name="now_playing">Now Playing</string>
     <string name="top_picks">Top Picks</string>
+    <string name="upcoming">Upcoming</string>
 </resources>

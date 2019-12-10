@@ -53,6 +53,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private fun setLeftNavigationView() {
         navigationView.setNavigationItemSelectedListener(this)
+        navigationView.menu.getItem(0).isChecked = true
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {

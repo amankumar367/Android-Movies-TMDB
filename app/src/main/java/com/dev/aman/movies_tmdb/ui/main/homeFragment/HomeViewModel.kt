@@ -190,7 +190,7 @@ class HomeViewModel: ViewModel() {
 
 
     private fun publishState(state: HomeState) {
-        Log.d(TAG," >>> Publish State : $state")
+//        Log.d(TAG," >>> Publish State : $state")
         stateObservable.value = state
     }
 

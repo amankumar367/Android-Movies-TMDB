@@ -9,6 +9,10 @@ data class HomeState (
     var eventType: EventType? = null
 ) {
     enum class EventType {
-        TRENDING_MOVIE, TRENDING_TVSHOWS, NOW_PLAYING, UPCOMING_MOVIES
+        TRENDING_MOVIE,
+        TRENDING_TVSHOWS,
+        NOW_PLAYING,
+        UPCOMING_MOVIES,
+        POPULAR_PEOPLES
     }
 }

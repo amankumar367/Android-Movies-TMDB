@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dev.aman.movies_tmdb.data.model.TrendingMovies
 import com.dev.aman.movies_tmdb.data.model.TrendingTVShows
+import com.dev.aman.movies_tmdb.data.repo.PopularRepoI
 import com.dev.aman.movies_tmdb.data.repo.TrendingMoviesRepoI
 import com.dev.aman.movies_tmdb.data.repo.TrendingTVShowsRepoI
 import com.dev.aman.movies_tmdb.network.ApiCallback
@@ -20,6 +21,7 @@ class HomeViewModel: ViewModel() {
 
     private lateinit var trendingMoviesRepoI: TrendingMoviesRepoI
     private lateinit var trendingTVShowsRepoI: TrendingTVShowsRepoI
+    private lateinit var popularRepoI: PopularRepoI
 
     var state = HomeState()
         set(value) {
@@ -28,11 +30,13 @@ class HomeViewModel: ViewModel() {
         }
 
     fun setRepository(trendingMoviesRepoI: TrendingMoviesRepoI,
-                      trendingTVShowsRepoI: TrendingTVShowsRepoI) {
+                      trendingTVShowsRepoI: TrendingTVShowsRepoI,
+                      popularRepoI: PopularRepoI) {
         Log.d(TAG, " >>> Setting up Repository")
 
         this.trendingMoviesRepoI = trendingMoviesRepoI
         this.trendingTVShowsRepoI = trendingTVShowsRepoI
+        this.popularRepoI = popularRepoI
     }
 
     fun getTrendingMovies() {
@@ -153,9 +157,41 @@ class HomeViewModel: ViewModel() {
         )
     }
 
+    fun getPopularPeoples() {
+        Log.d(TAG, " >>> Trying to get popular peoples")
+
+        state = state.copy(loading = true, eventType = HomeState.EventType.POPULAR_PEOPLES)
+        compositeDisposable.add(
+            popularRepoI.getPopularPeople()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    state =
+                        state.copy(
+                            loading = false,
+                            success = true,
+                            failure = false,
+                            data = it,
+                            eventType = HomeState.EventType.POPULAR_PEOPLES
+                        )
+                    }, {
+                        state =
+                            state.copy(
+                                loading = false,
+                                success = false,
+                                failure = true,
+                                message = it.localizedMessage,
+                                eventType = HomeState.EventType.POPULAR_PEOPLES
+                            )
+                    }
+                )
+        )
+    }
+
 
     private fun publishState(state: HomeState) {
-        stateObservable.postValue(state)
+        Log.d(TAG," >>> Publish State : $state")
+        stateObservable.value = state
     }
 
     override fun onCleared() {

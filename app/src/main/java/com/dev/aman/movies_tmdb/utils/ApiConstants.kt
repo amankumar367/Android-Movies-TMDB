@@ -17,6 +17,10 @@ object ApiConstants {
     const val TRENDING_DAY_TV = "trending/tv/day?api_key=${BuildConfig.TMDB_API_KEY}"
     const val TRENDING_DAY_PERSON = "trending/person/day?api_key=${BuildConfig.TMDB_API_KEY}"
 
+    // Movies URL
     const val NOW_PLAYING = "movie/now_playing?api_key=${BuildConfig.TMDB_API_KEY}&language=en-US&page=1&region=IN"
     const val UPCOMING_MPVIES = "movie/upcoming?api_key=${BuildConfig.TMDB_API_KEY}&language=en-US&page=1&region=IN"
+
+    // Popular People
+    const val POPULAR_PEOPLE = "person/popular?page=1&language=en-US&api_key=${BuildConfig.TMDB_API_KEY}"
 }

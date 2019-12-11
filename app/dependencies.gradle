@@ -19,7 +19,7 @@ ext {
     final def vLifeCycleKTX     = '2.0.0'
 
     /* Third party Libraries */
-    final def vCircleImageView          = '2.2.0'
+    final def vCircleImageView          = '3.0.1'
     final def vDagger                   = '2.22.1'
     final def vExpandableLayout         = '2.9.2'
     final def vJwRetrofitRxJavaAdapter  = '1.0.0'

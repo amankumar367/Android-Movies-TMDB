@@ -13,18 +13,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
-import com.dev.aman.movies_tmdb.data.model.NowPlaying
-import com.dev.aman.movies_tmdb.data.model.TrendingMovies
-import com.dev.aman.movies_tmdb.data.model.TrendingTVShows
-import com.dev.aman.movies_tmdb.data.model.UpcomingMovies
+import com.dev.aman.movies_tmdb.data.model.*
+import com.dev.aman.movies_tmdb.data.repo.PopularRepo
 import com.dev.aman.movies_tmdb.data.repo.TrendingMoviesRepo
 import com.dev.aman.movies_tmdb.data.repo.TrendingTVShowsRepo
 import com.dev.aman.movies_tmdb.extentions.invisible
 import com.dev.aman.movies_tmdb.extentions.visible
-import com.dev.aman.movies_tmdb.ui.adapter.NowPlayingAdapter
-import com.dev.aman.movies_tmdb.ui.adapter.TrendingMoviesAdapter
-import com.dev.aman.movies_tmdb.ui.adapter.TrendingTVShowsAdapter
-import com.dev.aman.movies_tmdb.ui.adapter.UpcomingMoviesAdapter
+import com.dev.aman.movies_tmdb.ui.adapter.*
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -36,6 +31,7 @@ class HomeFragment : DaggerFragment() {
     private lateinit var homeViewModel: HomeViewModel
     private val trendingMoviesRepo = TrendingMoviesRepo()
     private val trendingTVShowsRepo = TrendingTVShowsRepo()
+    private val popularRepo = PopularRepo()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,14 +44,14 @@ class HomeFragment : DaggerFragment() {
         setObserver()
         loadData()
 
-        setScrollViewListner()
+//        setScrollViewListner()
 
         return root
     }
 
     private fun init() {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        homeViewModel.setRepository(trendingMoviesRepo, trendingTVShowsRepo)
+        homeViewModel.setRepository(trendingMoviesRepo, trendingTVShowsRepo, popularRepo)
     }
 
     private fun setObserver() {
@@ -78,6 +74,7 @@ class HomeFragment : DaggerFragment() {
             HomeState.EventType.TRENDING_TVSHOWS -> showLoading(root.pb_trending_tvshows)
             HomeState.EventType.NOW_PLAYING -> showLoading(root.pb_now_playing)
             HomeState.EventType.UPCOMING_MOVIES -> showLoading(root.pb_upcoming_movies)
+            HomeState.EventType.POPULAR_PEOPLES -> showLoading(root.pb_popular_people)
         }
     }
 
@@ -87,6 +84,7 @@ class HomeFragment : DaggerFragment() {
             HomeState.EventType.TRENDING_TVSHOWS -> setTVShowsRecyclerView(state.data as TrendingTVShows)
             HomeState.EventType.NOW_PLAYING -> setNowPlayingRecyclerView(state.data as NowPlaying)
             HomeState.EventType.UPCOMING_MOVIES -> setUpcomingMoviesRecyclerVuew(state.data as UpcomingMovies)
+            HomeState.EventType.POPULAR_PEOPLES -> setPopularPeopleRecyclerView(state.data as PopularPeople)
         }
     }
 
@@ -94,19 +92,23 @@ class HomeFragment : DaggerFragment() {
         when (state.eventType) {
             HomeState.EventType.TRENDING_MOVIE -> {
                 hideLoading(pb_trending_movies)
-                Log.d(TAG, "Error while fatching trending movies : ${state.message}")
+                Log.d(TAG, " >>> Error while fatching trending movies : ${state.message}")
             }
             HomeState.EventType.TRENDING_TVSHOWS -> {
                 hideLoading(pb_trending_tvshows)
-                Log.d(TAG, "Error while fatching trending tv shows : ${state.message}")
+                Log.d(TAG, " >>> Error while fatching trending tv shows : ${state.message}")
             }
             HomeState.EventType.NOW_PLAYING -> {
                 hideLoading(pb_now_playing)
-                Log.d(TAG, "Error while fatching now playing movies : ${state.message}")
+                Log.d(TAG, " >>> Error while fatching now playing movies : ${state.message}")
             }
             HomeState.EventType.UPCOMING_MOVIES -> {
                 hideLoading(pb_upcoming_movies)
-                Log.d(TAG, "Error while fatching upcoming movies : ${state.message}")
+                Log.d(TAG, " >>> Error while fatching upcoming movies : ${state.message}")
+            }
+            HomeState.EventType.POPULAR_PEOPLES -> {
+                hideLoading(pb_popular_people)
+                Log.d(TAG, " >>> Error while fatching popular peoples : ${state.message}")
             }
         }
     }
@@ -116,6 +118,7 @@ class HomeFragment : DaggerFragment() {
         homeViewModel.getTrendingTVShows()
         homeViewModel.getNowPlaying()
         homeViewModel.getUpcomingMovies()
+        homeViewModel.getPopularPeoples()
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -162,6 +165,15 @@ class HomeFragment : DaggerFragment() {
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
         root.rv_upcoming_movies.adapter = upcomingMovies.results?.let {  UpcomingMoviesAdapter(it) }
+    }
+
+    private fun setPopularPeopleRecyclerView(popularPeople: PopularPeople) {
+        hideLoading(root.pb_popular_people)
+        root.rv_popular_people.layoutManager =
+            LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+
+        root.rv_popular_people.adapter = popularPeople.results?.let {  PopularPeopleAdapter(it) }
+
     }
 
     private fun showLoading(view: View) {

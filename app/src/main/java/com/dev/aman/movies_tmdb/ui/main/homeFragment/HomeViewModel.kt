@@ -16,8 +16,7 @@ class HomeViewModel: ViewModel() {
 
     var stateObservable: MutableLiveData<HomeState> = MutableLiveData()
 
-    private var compositeDisposableNowPlaying = CompositeDisposable()
-    private var compositeDisposableUpcomingMovies = CompositeDisposable()
+    private var compositeDisposable = CompositeDisposable()
 
     private lateinit var trendingMoviesRepoI: TrendingMoviesRepoI
     private lateinit var trendingTVShowsRepoI: TrendingTVShowsRepoI
@@ -96,7 +95,7 @@ class HomeViewModel: ViewModel() {
         Log.d(TAG, " >>> Trying to get now playing movies")
 
         state = state.copy(loading = true, eventType = HomeState.EventType.NOW_PLAYING)
-        compositeDisposableNowPlaying.add(
+        compositeDisposable.add(
             trendingMoviesRepoI.getNowPlaying()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -127,7 +126,7 @@ class HomeViewModel: ViewModel() {
         Log.d(TAG, " >>> Trying to get upcoming movies")
 
         state = state.copy(loading = true, eventType = HomeState.EventType.UPCOMING_MOVIES)
-        compositeDisposableNowPlaying.add(
+        compositeDisposable.add(
             trendingMoviesRepoI.getUpcomingMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -162,8 +161,7 @@ class HomeViewModel: ViewModel() {
     override fun onCleared() {
         super.onCleared()
         Log.d(TAG, " >>> Clearing compositeDisposable object")
-        compositeDisposableNowPlaying.dispose()
-        compositeDisposableUpcomingMovies.dispose()
+        compositeDisposable.dispose()
     }
 
     companion object {

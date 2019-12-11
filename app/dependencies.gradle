@@ -12,7 +12,7 @@ ext {
 
     /* Android Libraries */
     final def vMultiDex         = '2.0.0'
-    final def vSupport          = '1.0.0-rc01'
+    final def vSupport          = '1.1.0-alpha09'
     final def vAppCompat        = '1.0.2'
     final def vKTX              = '1.0.1'
     final def vConstraintLayout = '1.1.3'

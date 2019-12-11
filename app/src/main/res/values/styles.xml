@@ -15,4 +15,6 @@
         <item name="color">@color/white_10</item>
     </style>
 
+    <style name="Theme.TMDB.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+
 </resources>

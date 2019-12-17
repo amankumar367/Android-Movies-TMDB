@@ -92,23 +92,23 @@ class HomeFragment : DaggerFragment() {
         when (state.eventType) {
             HomeState.EventType.TRENDING_MOVIE -> {
                 hideLoading(pb_trending_movies)
-                Log.d(TAG, " >>> Error while fatching trending movies : ${state.message}")
+                Log.e(TAG, " >>> Error while fatching trending movies : ${state.message}")
             }
             HomeState.EventType.TRENDING_TVSHOWS -> {
                 hideLoading(pb_trending_tvshows)
-                Log.d(TAG, " >>> Error while fatching trending tv shows : ${state.message}")
+                Log.e(TAG, " >>> Error while fatching trending tv shows : ${state.message}")
             }
             HomeState.EventType.NOW_PLAYING -> {
                 hideLoading(pb_now_playing)
-                Log.d(TAG, " >>> Error while fatching now playing movies : ${state.message}")
+                Log.e(TAG, " >>> Error while fatching now playing movies : ${state.message}")
             }
             HomeState.EventType.UPCOMING_MOVIES -> {
                 hideLoading(pb_upcoming_movies)
-                Log.d(TAG, " >>> Error while fatching upcoming movies : ${state.message}")
+                Log.e(TAG, " >>> Error while fatching upcoming movies : ${state.message}")
             }
             HomeState.EventType.POPULAR_PEOPLES -> {
                 hideLoading(pb_popular_people)
-                Log.d(TAG, " >>> Error while fatching popular peoples : ${state.message}")
+                Log.e(TAG, " >>> Error while fatching popular peoples : ${state.message}")
             }
         }
     }

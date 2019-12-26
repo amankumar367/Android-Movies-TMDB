@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
 import com.dev.aman.movies_tmdb.data.model.TrendingMovies
@@ -11,10 +13,10 @@ import com.dev.aman.movies_tmdb.utils.ApiConstants
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_single_grid.view.*
 
-class TrendingMoviesAdapter(var results: List<TrendingMovies.Result?>)
-    : RecyclerView.Adapter<TrendingMoviesAdapter.TrendingMoviesVH>() {
+class TrendingMoviesAdapter
+    : PagedListAdapter<TrendingMovies.Result, RecyclerView.ViewHolder>(COMPARATOR) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingMoviesVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TrendingMoviesVH(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.layout_single_grid,
@@ -24,12 +26,24 @@ class TrendingMoviesAdapter(var results: List<TrendingMovies.Result?>)
         )
     }
 
-    override fun getItemCount(): Int {
-        return results.size
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val result = getItem(position)
+        result?.let {
+            (holder as TrendingMoviesVH).bind(result)
+        }
     }
 
-    override fun onBindViewHolder(holder: TrendingMoviesVH, position: Int) {
-        holder.bind(results[position]!!)
+    companion object {
+        private val COMPARATOR
+                = object : DiffUtil.ItemCallback<TrendingMovies.Result>() {
+            override fun areItemsTheSame(oldItem: TrendingMovies.Result,
+                                         newItem: TrendingMovies.Result)
+                    : Boolean = oldItem.id!! == newItem.id!!
+
+            override fun areContentsTheSame(oldItem: TrendingMovies.Result,
+                                            newItem: TrendingMovies.Result)
+                    : Boolean = oldItem == newItem
+        }
     }
 
 

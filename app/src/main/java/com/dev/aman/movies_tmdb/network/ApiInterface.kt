@@ -5,11 +5,12 @@ import com.dev.aman.movies_tmdb.utils.ApiConstants
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiInterface {
 
     @GET(ApiConstants.TRENDING_WEEKS_MOVIES)
-    fun getTrendingWeekMovies() : Observable<TrendingMovies>
+    fun getTrendingWeekMovies(@Query("page") page: Int) : Call<TrendingMovies>
 
     @GET(ApiConstants.TRENDING_WEEKS_TV)
     fun getTrendingWeekTVShows() : Observable<TrendingTVShows>

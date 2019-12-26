@@ -45,6 +45,7 @@ class HomeFragment : DaggerFragment() {
         loadData()
 
 //        setScrollViewListner()
+        setMoviesRecyclerView()
 
         return root
     }
@@ -80,7 +81,7 @@ class HomeFragment : DaggerFragment() {
 
     private fun showDataByEvent(state: HomeState) {
         when (state.eventType){
-            HomeState.EventType.TRENDING_MOVIE -> setMoviesRecyclerView(state.data as TrendingMovies)
+            HomeState.EventType.TRENDING_MOVIE -> {}
             HomeState.EventType.TRENDING_TVSHOWS -> setTVShowsRecyclerView(state.data as TrendingTVShows)
             HomeState.EventType.NOW_PLAYING -> setNowPlayingRecyclerView(state.data as NowPlaying)
             HomeState.EventType.UPCOMING_MOVIES -> setUpcomingMoviesRecyclerVuew(state.data as UpcomingMovies)
@@ -134,12 +135,19 @@ class HomeFragment : DaggerFragment() {
         }
     }
 
-    private fun setMoviesRecyclerView(trendingMovies: TrendingMovies) {
+    // TODO Setting up Adapter with livedata
+    private fun setMoviesRecyclerView() {
         hideLoading(root.pb_trending_movies)
         root.rv_trending_movies.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-        root.rv_trending_movies.adapter = trendingMovies.results?.let { TrendingMoviesAdapter(it) }
+
+        val adapter = TrendingMoviesAdapter()
+        root.rv_trending_movies.adapter = adapter
+        homeViewModel.moviesResult.observe(this, Observer {
+            adapter.submitList(it)
+        })
+
     }
 
     private fun setTVShowsRecyclerView(trendingTVShows: TrendingTVShows) {

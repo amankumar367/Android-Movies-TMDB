@@ -50,6 +50,8 @@ dependencies {
 
     implementation allImplementation.values()
 
+    testImplementation pagingTestImplementation.values()
+
     androidTestAnnotationProcessor androidTestAnnotationProcessor.values()
 
     testAnnotationProcessor testAnnotationProcessor.values()

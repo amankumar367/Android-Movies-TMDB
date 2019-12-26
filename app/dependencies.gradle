@@ -30,6 +30,7 @@ ext {
     final def vRxJava                   = '2.2.3'
     final def vStetho                   = '1.5.0'
     final def vPicasso                  = '2.71828'
+    final def vPaging                   = "2.1.1"
 
     /* Test Libraries */
     final def vJUnit                = '4.12'
@@ -59,7 +60,6 @@ ext {
     ]
 
     networkDependencies = [
-            retrofit               : "com.squareup.retrofit2:converter-gson:$vRetrofit",
             retrofitRxJavaAdapter  : "com.squareup.retrofit2:adapter-rxjava2:$vRetrofit",
             retrofitGsonConverter  : "com.squareup.retrofit2:converter-gson:$vRetrofit",
             jwRetrofitRxJavaAdapter: "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$vJwRetrofitRxJavaAdapter",
@@ -115,6 +115,16 @@ ext {
             runner  : "com.android.support.test:runner:$vSupportTestRunner"
     ]
 
+    paging = [
+            pagingRuntime       : "androidx.paging:paging-runtime:$vPaging",
+            pagingRuntimeKTX    : "androidx.paging:paging-runtime-ktx:$vPaging",
+            pagingRxJava2       : "androidx.paging:paging-rxjava2:$vPaging"
+    ]
+
+    pagingTestImplementation = [
+            pagingCommon: "androidx.paging:paging-common:$vPaging"
+    ]
+
     allImplementation = [
             androidSupportLibrary: androidSupportLibrary.values(),
             androidLibraries     : androidLibraries.values(),
@@ -124,6 +134,7 @@ ext {
             kotlin               : kotlin.values(),
             testLibs             : testLibs.values(),
             archLifecycle        : archLifecycle.values(),
-            libsDependencies     : libs.values()
+            libsDependencies     : libs.values(),
+            pagingLibrary        : paging.values()
     ]
 }

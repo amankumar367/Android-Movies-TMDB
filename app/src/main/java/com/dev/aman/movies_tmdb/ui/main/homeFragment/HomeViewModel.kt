@@ -1,8 +1,10 @@
 package com.dev.aman.movies_tmdb.ui.main.homeFragment
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
 import com.dev.aman.movies_tmdb.data.model.TrendingMovies
 import com.dev.aman.movies_tmdb.data.model.TrendingTVShows
 import com.dev.aman.movies_tmdb.data.repo.PopularRepoI
@@ -14,6 +16,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class HomeViewModel: ViewModel() {
+
+    lateinit var moviesResult: LiveData<PagedList<TrendingMovies.Result>>
 
     var stateObservable: MutableLiveData<HomeState> = MutableLiveData()
 
@@ -42,29 +46,15 @@ class HomeViewModel: ViewModel() {
     fun getTrendingMovies() {
         Log.d(TAG, " >>> Trying to get trending movies")
 
-        state = state.copy(loading = true, eventType = HomeState.EventType.TRENDING_MOVIE)
-        trendingMoviesRepoI.getTrendingMovies(object : ApiCallback<TrendingMovies> {
-            override fun onSuccess(t: TrendingMovies) {
-                state = state.copy(
-                    loading = false,
-                    success = true,
-                    failure = false,
-                    data = t,
-                    eventType = HomeState.EventType.TRENDING_MOVIE
-                )
-            }
+        moviesResult = trendingMoviesRepoI.getTrendingMovies()
 
-            override fun onFailure(message: String) {
-                state =
-                    state.copy(
-                        loading = false,
-                        success = false,
-                        failure = true,
-                        message = message,
-                        eventType = HomeState.EventType.TRENDING_MOVIE
-                    )
-            }
-        })
+        state = state.copy(
+            loading = false,
+            success = true,
+            failure = false,
+            data = moviesResult.value,
+            eventType = HomeState.EventType.TRENDING_MOVIE
+        )
     }
 
     fun getTrendingTVShows() {

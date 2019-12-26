@@ -1,21 +1,20 @@
 package com.dev.aman.movies_tmdb.data.repo
 
-import androidx.core.graphics.scaleMatrix
+import androidx.lifecycle.LiveData
+import androidx.paging.Config
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import com.dev.aman.movies_tmdb.BaseApplication
 import com.dev.aman.movies_tmdb.data.model.NowPlaying
 import com.dev.aman.movies_tmdb.data.model.TrendingMovies
 import com.dev.aman.movies_tmdb.data.model.UpcomingMovies
-import com.dev.aman.movies_tmdb.network.ApiCallback
 import com.dev.aman.movies_tmdb.network.ApiInterface
-import io.reactivex.Observer
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class TrendingMoviesRepo : TrendingMoviesRepoI {
@@ -30,25 +29,39 @@ class TrendingMoviesRepo : TrendingMoviesRepoI {
         moviesApi = retrofit.create(ApiInterface::class.java)
     }
 
-    override fun getTrendingMovies(apiCallback: ApiCallback<TrendingMovies>) {
-        moviesApi!!.getTrendingWeekMovies()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<TrendingMovies> {
-                override fun onComplete() {
-                }
+    override fun getTrendingMovies(): LiveData<PagedList<TrendingMovies.Result>> {
+        val sourceFactory = DataSourceFactory(moviesApi!!)
 
-                override fun onSubscribe(d: Disposable) {
-                }
+        val livePageList =  sourceFactory.toLiveData(
+            // we use Config Kotlin ext. function here, could also use PagedList.Config.Builder
+            config = Config(
+                pageSize = 10,
+                enablePlaceholders = true,
+                initialLoadSizeHint = 10),
+        // provide custom executor for network requests, otherwise it will default to
+        // Arch Components' IO pool which is also used for disk access
+        fetchExecutor = Executors.newFixedThreadPool(5))
 
-                override fun onNext(t: TrendingMovies) {
-                    apiCallback.onSuccess(t)
-                }
+        return livePageList
 
-                override fun onError(e: Throwable) {
-                    apiCallback.onFailure(e.localizedMessage!!)
-                }
-            })
+//        moviesApi!!.getTrendingWeekMovies()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(object : Observer<TrendingMovies> {
+//                override fun onComplete() {
+//                }
+//
+//                override fun onSubscribe(d: Disposable) {
+//                }
+//
+//                override fun onNext(t: TrendingMovies) {
+//                    apiCallback.onSuccess(t)
+//                }
+//
+//                override fun onError(e: Throwabl`e) {
+//                    apiCallback.onFailure(e.localizedMessage!!)
+//                }
+//            })
     }
 
     override fun getNowPlaying(): Single<NowPlaying> {

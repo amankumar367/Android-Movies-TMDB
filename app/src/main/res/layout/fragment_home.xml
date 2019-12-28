@@ -63,7 +63,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_trending_movies"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/recyclerview_height"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +120,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_trending_tvShows"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/recyclerview_height"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -177,7 +177,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_now_playing"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/recyclerview_height"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +234,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_upcoming_movies"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/recyclerview_height"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -287,7 +287,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_top_picks"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/recyclerview_height"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,7 +1,5 @@
 package com.dev.aman.movies_tmdb.utils
 
-import com.dev.aman.movies_tmdb.BuildConfig
-
 object ApiConstants {
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val BASE_URL_IMAGE = "http://image.tmdb.org/t/p/w185"

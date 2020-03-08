@@ -8,118 +8,205 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
-import com.dev.aman.movies_tmdb.data.model.*
-import com.dev.aman.movies_tmdb.data.repo.PopularRepo
-import com.dev.aman.movies_tmdb.data.repo.TrendingMoviesRepo
-import com.dev.aman.movies_tmdb.data.repo.TrendingTVShowsRepo
+import com.dev.aman.movies_tmdb.data.repo.movies.MoviesRepoI
+import com.dev.aman.movies_tmdb.data.repo.popular.PopularRepoI
+import com.dev.aman.movies_tmdb.data.repo.tvshows.TVShowsRepoI
+import com.dev.aman.movies_tmdb.databinding.FragmentHomeBinding
+import com.dev.aman.movies_tmdb.extentions.createFactory
 import com.dev.aman.movies_tmdb.extentions.invisible
 import com.dev.aman.movies_tmdb.extentions.visible
+import com.dev.aman.movies_tmdb.network.RequestType
 import com.dev.aman.movies_tmdb.ui.adapter.*
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import javax.inject.Inject
 
 
 class HomeFragment : DaggerFragment() {
 
     private lateinit var root : View
     private lateinit var homeViewModel: HomeViewModel
-    private val trendingMoviesRepo = TrendingMoviesRepo()
-    private val trendingTVShowsRepo = TrendingTVShowsRepo()
-    private val popularRepo = PopularRepo()
+    private lateinit var databinding: FragmentHomeBinding
+
+    private lateinit var trendingMoviesAdapter: CommonAdapter
+    private lateinit var trendingTVShowsAdapter: CommonAdapter
+    private lateinit var nowPlayingAdapter: CommonAdapter
+    private lateinit var upcomingMoviesAdapter: CommonAdapter
+    private lateinit var popularPeopleAdapter: CommonAdapter
+    private var topPickAdapter = CommonAdapter(RequestType.TOP_PICKS)
+
+    @Inject
+    lateinit var moviesRepo: MoviesRepoI
+
+    @Inject
+    lateinit var tvShowsRepo: TVShowsRepoI
+
+    @Inject
+    lateinit var popularRepo: PopularRepoI
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root = inflater.inflate(R.layout.fragment_home, container, false)
+        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         init()
-        setObserver()
         loadData()
+        setObserver()
+        setPagingObserver()
+        setAllRecyclerView()
 
 //        setScrollViewListner()
-        setMoviesRecyclerView()
 
         return root
     }
 
     private fun init() {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        homeViewModel.setRepository(trendingMoviesRepo, trendingTVShowsRepo, popularRepo)
+        root = databinding.root
+        val factory
+                = HomeViewModel(moviesRepo, tvShowsRepo, popularRepo).createFactory()
+        homeViewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
+    }
+
+    private fun loadData() {
+        homeViewModel.getTrendingTVShows()
+        homeViewModel.getNowPlaying()
+        homeViewModel.getUpcomingMovies()
+        homeViewModel.getPopularPeoples()
+        homeViewModel.getTrendingMovies()
     }
 
     private fun setObserver() {
-        homeViewModel.stateObservable.observe(this, Observer {
+        homeViewModel.trendingMoviesStateObservable.observe(this, Observer {
+            updateView(it)
+        })
+        homeViewModel.trendingTVShowsStateObservable.observe(this, Observer {
+            updateView(it)
+        })
+        homeViewModel.nowPlayingStateObservable.observe(this, Observer {
+            updateView(it)
+        })
+        homeViewModel.upcomingMoviesStateObservable.observe(this, Observer {
+            updateView(it)
+        })
+        homeViewModel.popularPeopleStateObservable.observe(this, Observer {
             updateView(it)
         })
     }
 
+    private fun setPagingObserver() {
+        homeViewModel.trendingMoviesPageList.observe(this, Observer {
+            trendingMoviesAdapter.submitList(it)
+        })
+        homeViewModel.trendingTVShowsPageList.observe(this, Observer {
+            trendingTVShowsAdapter.submitList(it)
+        })
+        homeViewModel.nowPlayingPageList.observe(this, Observer {
+            nowPlayingAdapter.submitList(it)
+        })
+        homeViewModel.upcomingMoviesPageList.observe(this, Observer {
+            upcomingMoviesAdapter.submitList(it)
+        })
+        homeViewModel.popularPeoplePageList.observe(this, Observer {
+            popularPeopleAdapter.submitList(it)
+        })
+    }
+
+    private fun setAllRecyclerView() {
+        setMoviesRecyclerView()
+        setTVShowsRecyclerView()
+        setNowPlayingRecyclerView()
+        setUpcomingMoviesRecyclerVuew()
+        setPopularPeopleRecyclerView()
+    }
+
     private fun updateView(state: HomeState?) {
+        Log.d(TAG, " >>> Updating view for ${state?.eventType} with current state : $state")
         when {
-            state!!.loading -> showLoadingByEvent(state)
-            state.success -> showDataByEvent(state)
+            state!!.initialLoading -> showInitialLoading(state)
+            state.afterLoading -> {}
+            state.success -> setData(state)
             state.failure -> showFailureByEvent(state)
         }
     }
 
-    private fun showLoadingByEvent(state: HomeState) {
+    private fun showInitialLoading(state: HomeState) {
         when (state.eventType) {
-            HomeState.EventType.TRENDING_MOVIE -> showLoading(root.pb_trending_movies)
-            HomeState.EventType.TRENDING_TVSHOWS -> showLoading(root.pb_trending_tvshows)
-            HomeState.EventType.NOW_PLAYING -> showLoading(root.pb_now_playing)
-            HomeState.EventType.UPCOMING_MOVIES -> showLoading(root.pb_upcoming_movies)
-            HomeState.EventType.POPULAR_PEOPLES -> showLoading(root.pb_popular_people)
+            RequestType.TRENDING_MOVIE -> {
+                show(root.pb_trending_movies)
+                hide(root.trending_movies_retry)
+            }
+            RequestType.TRENDING_TVSHOWS -> {
+                show(root.pb_trending_tvshows)
+                hide(root.trending_tvShows_retry)
+            }
+            RequestType.NOW_PLAYING -> {
+                show(root.pb_now_playing)
+                hide(root.now_playing_retry)
+            }
+            RequestType.UPCOMING_MOVIES -> {
+                show(root.pb_upcoming_movies)
+                hide(root.upcoming_movies_retry)
+            }
+            RequestType.POPULAR_PEOPLES -> {
+                show(root.pb_popular_people)
+                hide(root.popular_people_retry)
+            }
+            RequestType.TOP_PICKS -> {
+                show(root.pb_top_picks)
+                hide(root.top_picks_retry)
+            }
         }
     }
 
-    private fun showDataByEvent(state: HomeState) {
-        when (state.eventType){
-            HomeState.EventType.TRENDING_MOVIE -> {}
-            HomeState.EventType.TRENDING_TVSHOWS -> setTVShowsRecyclerView(state.data as TrendingTVShows)
-            HomeState.EventType.NOW_PLAYING -> setNowPlayingRecyclerView(state.data as NowPlaying)
-            HomeState.EventType.UPCOMING_MOVIES -> setUpcomingMoviesRecyclerVuew(state.data as UpcomingMovies)
-            HomeState.EventType.POPULAR_PEOPLES -> setPopularPeopleRecyclerView(state.data as PopularPeople)
+    private fun setData(state: HomeState) {
+        when (state.eventType) {
+            RequestType.TRENDING_MOVIE -> hide(root.pb_trending_movies)
+            RequestType.TRENDING_TVSHOWS -> hide(root.pb_trending_tvshows)
+            RequestType.NOW_PLAYING -> hide(root.pb_now_playing)
+            RequestType.UPCOMING_MOVIES -> hide(root.pb_upcoming_movies)
+            RequestType.POPULAR_PEOPLES -> hide(root.pb_popular_people)
+            RequestType.TOP_PICKS -> {}
         }
     }
 
     private fun showFailureByEvent(state: HomeState) {
         when (state.eventType) {
-            HomeState.EventType.TRENDING_MOVIE -> {
-                hideLoading(pb_trending_movies)
+            RequestType.TRENDING_MOVIE -> {
+                hide(pb_trending_movies)
+                show(root.trending_movies_retry)
                 Log.e(TAG, " >>> Error while fatching trending movies : ${state.message}")
             }
-            HomeState.EventType.TRENDING_TVSHOWS -> {
-                hideLoading(pb_trending_tvshows)
+            RequestType.TRENDING_TVSHOWS -> {
+                hide(pb_trending_tvshows)
+                show(root.trending_tvShows_retry)
                 Log.e(TAG, " >>> Error while fatching trending tv shows : ${state.message}")
             }
-            HomeState.EventType.NOW_PLAYING -> {
-                hideLoading(pb_now_playing)
+            RequestType.NOW_PLAYING -> {
+                hide(pb_now_playing)
+                show(root.now_playing_retry)
                 Log.e(TAG, " >>> Error while fatching now playing movies : ${state.message}")
             }
-            HomeState.EventType.UPCOMING_MOVIES -> {
-                hideLoading(pb_upcoming_movies)
+            RequestType.UPCOMING_MOVIES -> {
+                hide(pb_upcoming_movies)
+                show(root.upcoming_movies_retry)
                 Log.e(TAG, " >>> Error while fatching upcoming movies : ${state.message}")
             }
-            HomeState.EventType.POPULAR_PEOPLES -> {
-                hideLoading(pb_popular_people)
+            RequestType.POPULAR_PEOPLES -> {
+                hide(pb_popular_people)
+                show(root.popular_people_retry)
                 Log.e(TAG, " >>> Error while fatching popular peoples : ${state.message}")
             }
+            RequestType.TOP_PICKS -> {}
         }
-    }
-
-    private fun loadData() {
-        homeViewModel.getTrendingMovies()
-        homeViewModel.getTrendingTVShows()
-        homeViewModel.getNowPlaying()
-        homeViewModel.getUpcomingMovies()
-        homeViewModel.getPopularPeoples()
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -135,60 +222,51 @@ class HomeFragment : DaggerFragment() {
         }
     }
 
-    // TODO Setting up Adapter with livedata
     private fun setMoviesRecyclerView() {
-        hideLoading(root.pb_trending_movies)
         root.rv_trending_movies.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-
-        val adapter = TrendingMoviesAdapter()
-        root.rv_trending_movies.adapter = adapter
-        homeViewModel.moviesResult.observe(this, Observer {
-            adapter.submitList(it)
-        })
-
+        trendingMoviesAdapter = CommonAdapter(RequestType.TRENDING_MOVIE)
+        root.rv_trending_movies.adapter = trendingMoviesAdapter
     }
 
-    private fun setTVShowsRecyclerView(trendingTVShows: TrendingTVShows) {
-        hideLoading(root.pb_trending_tvshows)
+    private fun setTVShowsRecyclerView() {
         root.rv_trending_tvShows.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-        root.rv_trending_tvShows.adapter = trendingTVShows.results?.let { TrendingTVShowsAdapter(it) }
+        trendingTVShowsAdapter = CommonAdapter(RequestType.TRENDING_TVSHOWS)
+        root.rv_trending_tvShows.adapter = trendingTVShowsAdapter
     }
 
-    private fun setNowPlayingRecyclerView(nowPlaying: NowPlaying) {
-        hideLoading(root.pb_now_playing)
+    private fun setNowPlayingRecyclerView() {
         root.rv_now_playing.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-        root.rv_now_playing.adapter = nowPlaying.results?.let { NowPlayingAdapter(it) }
+        nowPlayingAdapter = CommonAdapter(RequestType.NOW_PLAYING)
+        root.rv_now_playing.adapter = nowPlayingAdapter
     }
 
-    private fun setUpcomingMoviesRecyclerVuew(upcomingMovies: UpcomingMovies) {
-        hideLoading(root.pb_upcoming_movies)
-
+    private fun setUpcomingMoviesRecyclerVuew() {
         root.rv_upcoming_movies.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-        root.rv_upcoming_movies.adapter = upcomingMovies.results?.let {  UpcomingMoviesAdapter(it) }
+        upcomingMoviesAdapter = CommonAdapter(RequestType.UPCOMING_MOVIES)
+        root.rv_upcoming_movies.adapter = upcomingMoviesAdapter
     }
 
-    private fun setPopularPeopleRecyclerView(popularPeople: PopularPeople) {
-        hideLoading(root.pb_popular_people)
+    private fun setPopularPeopleRecyclerView() {
         root.rv_popular_people.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-        root.rv_popular_people.adapter = popularPeople.results?.let {  PopularPeopleAdapter(it) }
-
+        popularPeopleAdapter = CommonAdapter(RequestType.POPULAR_PEOPLES)
+        root.rv_popular_people.adapter = popularPeopleAdapter
     }
 
-    private fun showLoading(view: View) {
+    private fun show(view: View) {
         view.visible()
     }
 
-    private fun hideLoading(view: View) {
+    private fun hide(view: View) {
         view.invisible()
     }
 

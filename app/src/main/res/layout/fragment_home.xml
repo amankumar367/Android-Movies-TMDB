@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
-    <data class="HomeFragmentBinding">
+    <data>
         <import type="android.view.View"/>
 
         <variable
@@ -70,6 +70,7 @@
                         android:id="@+id/pb_trending_movies"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/rv_trending_movies"
                         app:layout_constraintEnd_toEndOf="@+id/rv_trending_movies"
                         app:layout_constraintStart_toStartOf="@+id/rv_trending_movies"
@@ -138,6 +139,7 @@
                         android:id="@+id/pb_trending_tvshows"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/rv_trending_tvShows"
                         app:layout_constraintEnd_toEndOf="@+id/rv_trending_tvShows"
                         app:layout_constraintStart_toStartOf="@+id/rv_trending_tvShows"
@@ -206,6 +208,7 @@
                         android:id="@+id/pb_now_playing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/rv_now_playing"
                         app:layout_constraintEnd_toEndOf="@+id/rv_now_playing"
                         app:layout_constraintStart_toStartOf="@+id/rv_now_playing"
@@ -274,6 +277,7 @@
                         android:id="@+id/pb_upcoming_movies"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/rv_upcoming_movies"
                         app:layout_constraintEnd_toEndOf="@+id/rv_upcoming_movies"
                         app:layout_constraintStart_toStartOf="@+id/rv_upcoming_movies"
@@ -338,6 +342,7 @@
                         android:id="@+id/pb_top_picks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/rv_top_picks"
                         app:layout_constraintEnd_toEndOf="@+id/rv_top_picks"
                         app:layout_constraintStart_toStartOf="@+id/rv_top_picks"
@@ -357,7 +362,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         layout="@layout/layout_connection_retry"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@+id/rv_top_picks"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -392,6 +397,7 @@
                         android:id="@+id/pb_popular_people"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/rv_popular_people"
                         app:layout_constraintEnd_toEndOf="@+id/rv_popular_people"
                         app:layout_constraintStart_toStartOf="@+id/rv_popular_people"

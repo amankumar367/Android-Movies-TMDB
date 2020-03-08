@@ -1,5 +1,6 @@
 package com.dev.aman.movies_tmdb.di
 
+import com.dev.aman.movies_tmdb.network.ApiInterface
 import com.dev.aman.movies_tmdb.network.NetworkInterceptor
 import com.dev.aman.movies_tmdb.utils.ApiConstants
 import com.facebook.stetho.okhttp3.StethoInterceptor
@@ -32,5 +33,11 @@ class NetworkModule {
             .addInterceptor(NetworkInterceptor())
             .addNetworkInterceptor(StethoInterceptor())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiInterface(retrofit: Retrofit): ApiInterface {
+        return retrofit.create(ApiInterface::class.java)
     }
 }

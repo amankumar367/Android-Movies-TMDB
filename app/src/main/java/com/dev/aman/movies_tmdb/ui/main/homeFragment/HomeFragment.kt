@@ -19,6 +19,7 @@ import com.dev.aman.movies_tmdb.data.repo.popular.PopularRepoI
 import com.dev.aman.movies_tmdb.data.repo.tvshows.TVShowsRepoI
 import com.dev.aman.movies_tmdb.databinding.FragmentHomeBinding
 import com.dev.aman.movies_tmdb.extentions.createFactory
+import com.dev.aman.movies_tmdb.extentions.gone
 import com.dev.aman.movies_tmdb.extentions.invisible
 import com.dev.aman.movies_tmdb.extentions.visible
 import com.dev.aman.movies_tmdb.network.RequestType
@@ -42,6 +43,8 @@ class HomeFragment : DaggerFragment() {
     private lateinit var popularPeopleAdapter: CommonAdapter
     private var topPickAdapter = CommonAdapter(RequestType.TOP_PICKS)
 
+    private var isNextLoaderShowing: Boolean = false
+
     @Inject
     lateinit var moviesRepo: MoviesRepoI
 
@@ -60,7 +63,7 @@ class HomeFragment : DaggerFragment() {
 
         init()
         loadData()
-        setObserver()
+        setStateObserver()
         setPagingObserver()
         setAllRecyclerView()
 
@@ -84,7 +87,7 @@ class HomeFragment : DaggerFragment() {
         homeViewModel.getTrendingMovies()
     }
 
-    private fun setObserver() {
+    private fun setStateObserver() {
         homeViewModel.trendingMoviesStateObservable.observe(this, Observer {
             updateView(it)
         })
@@ -132,7 +135,7 @@ class HomeFragment : DaggerFragment() {
         Log.d(TAG, " >>> Updating view for ${state?.eventType} with current state : $state")
         when {
             state!!.initialLoading -> showInitialLoading(state)
-            state.afterLoading -> {}
+            state.afterLoading -> showAfterLoading(state)
             state.success -> setData(state)
             state.failure -> showFailureByEvent(state)
         }
@@ -167,13 +170,40 @@ class HomeFragment : DaggerFragment() {
         }
     }
 
+    private fun showAfterLoading(state: HomeState) {
+        isNextLoaderShowing = true
+        when (state.eventType) {
+            RequestType.TRENDING_MOVIE -> show(root.pb_next_trending_movies)
+            RequestType.TRENDING_TVSHOWS -> show(root.pb_next_trending_tvShows)
+            RequestType.NOW_PLAYING -> show(root.pb_next_now_playing)
+            RequestType.UPCOMING_MOVIES -> show(root.pb_next_upcoming_movies)
+            RequestType.POPULAR_PEOPLES -> show(root.pb_next_popular_people)
+            RequestType.TOP_PICKS -> show(root.pb_next_top_picks)
+        }
+    }
+
     private fun setData(state: HomeState) {
         when (state.eventType) {
-            RequestType.TRENDING_MOVIE -> hide(root.pb_trending_movies)
-            RequestType.TRENDING_TVSHOWS -> hide(root.pb_trending_tvshows)
-            RequestType.NOW_PLAYING -> hide(root.pb_now_playing)
-            RequestType.UPCOMING_MOVIES -> hide(root.pb_upcoming_movies)
-            RequestType.POPULAR_PEOPLES -> hide(root.pb_popular_people)
+            RequestType.TRENDING_MOVIE -> {
+                hide(root.pb_trending_movies)
+                gone(root.pb_next_trending_movies)
+            }
+            RequestType.TRENDING_TVSHOWS -> {
+                hide(root.pb_trending_tvshows)
+                gone(root.pb_next_trending_tvShows)
+            }
+            RequestType.NOW_PLAYING -> {
+                hide(root.pb_now_playing)
+                gone(root.pb_next_now_playing)
+            }
+            RequestType.UPCOMING_MOVIES -> {
+                hide(root.pb_upcoming_movies)
+                gone(root.pb_next_upcoming_movies)
+            }
+            RequestType.POPULAR_PEOPLES -> {
+                hide(root.pb_popular_people)
+                gone(root.pb_next_popular_people)
+            }
             RequestType.TOP_PICKS -> {}
         }
     }
@@ -181,29 +211,54 @@ class HomeFragment : DaggerFragment() {
     private fun showFailureByEvent(state: HomeState) {
         when (state.eventType) {
             RequestType.TRENDING_MOVIE -> {
-                hide(pb_trending_movies)
-                show(root.trending_movies_retry)
-                Log.e(TAG, " >>> Error while fatching trending movies : ${state.message}")
+                Log.e(TAG, " >>> Error while fetching trending movies : ${state.message}")
+                if (isNextLoaderShowing) {
+                    gone(root.pb_next_trending_movies)
+                    isNextLoaderShowing = false
+                } else {
+                    hide(root.pb_trending_movies)
+                    show(root.trending_movies_retry)
+                }
             }
             RequestType.TRENDING_TVSHOWS -> {
-                hide(pb_trending_tvshows)
-                show(root.trending_tvShows_retry)
-                Log.e(TAG, " >>> Error while fatching trending tv shows : ${state.message}")
+                Log.e(TAG, " >>> Error while fetching trending tv shows : ${state.message}")
+                if (isNextLoaderShowing) {
+                    gone(root.pb_next_trending_tvShows)
+                    isNextLoaderShowing = false
+                } else {
+                    hide(pb_trending_tvshows)
+                    show(root.trending_tvShows_retry)
+                }
             }
             RequestType.NOW_PLAYING -> {
-                hide(pb_now_playing)
-                show(root.now_playing_retry)
-                Log.e(TAG, " >>> Error while fatching now playing movies : ${state.message}")
+                Log.e(TAG, " >>> Error while fetching now playing movies : ${state.message}")
+                if (isNextLoaderShowing) {
+                    gone(root.pb_next_now_playing)
+                    isNextLoaderShowing = false
+                } else {
+                    hide(pb_now_playing)
+                    show(root.now_playing_retry)
+                }
             }
             RequestType.UPCOMING_MOVIES -> {
-                hide(pb_upcoming_movies)
-                show(root.upcoming_movies_retry)
-                Log.e(TAG, " >>> Error while fatching upcoming movies : ${state.message}")
+                Log.e(TAG, " >>> Error while fetching upcoming movies : ${state.message}")
+                if (isNextLoaderShowing) {
+                    gone(root.pb_next_upcoming_movies)
+                    isNextLoaderShowing = false
+                } else {
+                    hide(pb_upcoming_movies)
+                    show(root.upcoming_movies_retry)
+                }
             }
             RequestType.POPULAR_PEOPLES -> {
-                hide(pb_popular_people)
-                show(root.popular_people_retry)
-                Log.e(TAG, " >>> Error while fatching popular peoples : ${state.message}")
+                Log.e(TAG, " >>> Error while fetching popular peoples : ${state.message}")
+                if (isNextLoaderShowing) {
+                    gone(root.pb_next_popular_people)
+                    isNextLoaderShowing = false
+                } else {
+                    hide(pb_popular_people)
+                    show(root.popular_people_retry)
+                }
             }
             RequestType.TOP_PICKS -> {}
         }
@@ -268,6 +323,10 @@ class HomeFragment : DaggerFragment() {
 
     private fun hide(view: View) {
         view.invisible()
+    }
+
+    private fun gone(view: View) {
+        view.gone()
     }
 
     companion object{

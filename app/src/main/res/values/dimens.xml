@@ -24,4 +24,6 @@
 
     <dimen name="recyclerview_height">195dp</dimen>
 
+    <dimen name="progress_bar_dimen">23dp</dimen>
+
 </resources>

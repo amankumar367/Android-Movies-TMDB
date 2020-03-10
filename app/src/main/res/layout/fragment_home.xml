@@ -78,12 +78,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_trending_movies"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/pb_next_trending_movies"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_trending_movie_title" />
+
+                <ProgressBar
+                        android:id="@+id/pb_next_trending_movies"
+                        android:layout_width="@dimen/progress_bar_dimen"
+                        android:layout_height="@dimen/progress_bar_dimen"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/rv_trending_movies"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/rv_trending_movies" />
 
                 <include
                         android:id="@+id/trending_movies_retry"
@@ -147,12 +156,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_trending_tvShows"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/pb_next_trending_tvShows"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_trending_tvShows_title" />
+
+                <ProgressBar
+                        android:id="@+id/pb_next_trending_tvShows"
+                        android:layout_width="@dimen/progress_bar_dimen"
+                        android:layout_height="@dimen/progress_bar_dimen"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/rv_trending_tvShows"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/rv_trending_tvShows" />
 
                 <include
                         android:id="@+id/trending_tvShows_retry"
@@ -216,12 +234,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_now_playing"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/pb_next_now_playing"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_now_playing_title" />
+
+                <ProgressBar
+                        android:id="@+id/pb_next_now_playing"
+                        android:layout_width="@dimen/progress_bar_dimen"
+                        android:layout_height="@dimen/progress_bar_dimen"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/rv_now_playing"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/rv_now_playing" />
 
                 <include
                         android:id="@+id/now_playing_retry"
@@ -285,12 +312,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_upcoming_movies"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/pb_next_upcoming_movies"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_upcoming_movies_title" />
+
+                <ProgressBar
+                        android:id="@+id/pb_next_upcoming_movies"
+                        android:layout_width="@dimen/progress_bar_dimen"
+                        android:layout_height="@dimen/progress_bar_dimen"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/rv_upcoming_movies"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/rv_upcoming_movies" />
 
                 <include
                         android:id="@+id/upcoming_movies_retry"
@@ -350,12 +386,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_top_picks"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/pb_next_top_picks"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/iv_top_picks_title" />
+
+                <ProgressBar
+                        android:id="@+id/pb_next_top_picks"
+                        android:layout_width="@dimen/progress_bar_dimen"
+                        android:layout_height="@dimen/progress_bar_dimen"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/rv_top_picks"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/rv_top_picks" />
 
                 <include
                         android:id="@+id/top_picks_retry"
@@ -405,12 +450,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_popular_people"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="105dp"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/pb_next_popular_people"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_popular_people_title" />
+
+                <ProgressBar
+                        android:id="@+id/pb_next_popular_people"
+                        android:layout_width="@dimen/progress_bar_dimen"
+                        android:layout_height="@dimen/progress_bar_dimen"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/rv_popular_people"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/rv_popular_people" />
 
                 <include
                         android:id="@+id/popular_people_retry"

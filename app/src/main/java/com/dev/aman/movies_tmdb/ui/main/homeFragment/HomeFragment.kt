@@ -66,6 +66,7 @@ class HomeFragment : DaggerFragment() {
         setStateObserver()
         setPagingObserver()
         setAllRecyclerView()
+        onClick()
 
 //        setScrollViewListner()
 
@@ -129,6 +130,24 @@ class HomeFragment : DaggerFragment() {
         setNowPlayingRecyclerView()
         setUpcomingMoviesRecyclerVuew()
         setPopularPeopleRecyclerView()
+    }
+
+    private fun onClick() {
+        root.trending_movies_retry.setOnClickListener {
+            homeViewModel.retry(RequestType.TRENDING_MOVIE)
+        }
+        root.trending_tvShows_retry.setOnClickListener {
+            homeViewModel.retry(RequestType.TRENDING_TVSHOWS)
+        }
+        root.now_playing_retry.setOnClickListener {
+            homeViewModel.retry(RequestType.NOW_PLAYING)
+        }
+        root.upcoming_movies_retry.setOnClickListener {
+            homeViewModel.retry(RequestType.UPCOMING_MOVIES)
+        }
+        root.popular_people_retry.setOnClickListener {
+            homeViewModel.retry(RequestType.POPULAR_PEOPLES)
+        }
     }
 
     private fun updateView(state: HomeState?) {

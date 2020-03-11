@@ -39,6 +39,12 @@ class HomeViewModel(
     lateinit var upcomingMoviesStateObservable: LiveData<HomeState>
     lateinit var popularPeopleStateObservable: LiveData<HomeState>
 
+    private lateinit var trendingMoviesSourceFactory: DataSourceFactory
+    private lateinit var trendingTVShowsSourceFactory: DataSourceFactory
+    private lateinit var nowPlayingSourceFactory: DataSourceFactory
+    private lateinit var upcomingMoviesSourceFactory: DataSourceFactory
+    private lateinit var popularPeopleSourceFactory: DataSourceFactory
+
     private var compositeDisposable = CompositeDisposable()
 
     private val config = PagedList.Config.Builder()
@@ -49,61 +55,82 @@ class HomeViewModel(
     fun getTrendingMovies() {
         Log.d(TAG, " >>> Trying to get trending movies")
 
-        val sourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
+        trendingMoviesSourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
             compositeDisposable, RequestType.TRENDING_MOVIE)
 
-        trendingMoviesPageList = LivePagedListBuilder(sourceFactory, config).build()
+        trendingMoviesPageList = LivePagedListBuilder(trendingMoviesSourceFactory, config).build()
 
         trendingMoviesStateObservable = Transformations.switchMap<TrendingMoviesDataSource, HomeState>(
-            sourceFactory.trendingMoviesLiveData, TrendingMoviesDataSource::stateObservable)
+            trendingMoviesSourceFactory.trendingMoviesLiveData, TrendingMoviesDataSource::stateObservable)
     }
 
     fun getTrendingTVShows() {
         Log.d(TAG, " >>> Trying to get trending TV shows")
 
-        val sourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
+        trendingTVShowsSourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
             compositeDisposable, RequestType.TRENDING_TVSHOWS)
 
-        trendingTVShowsPageList = LivePagedListBuilder(sourceFactory, config).build()
+        trendingTVShowsPageList = LivePagedListBuilder(trendingTVShowsSourceFactory, config).build()
 
         trendingTVShowsStateObservable = Transformations.switchMap<TrendingTVShowsDataSource, HomeState>(
-            sourceFactory.trendingTVShowsLiveData, TrendingTVShowsDataSource::stateObservable)
+            trendingTVShowsSourceFactory.trendingTVShowsLiveData, TrendingTVShowsDataSource::stateObservable)
     }
 
     fun getNowPlaying() {
         Log.d(TAG, " >>> Trying to get now playing movies")
 
-        val sourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
+        nowPlayingSourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
             compositeDisposable, RequestType.NOW_PLAYING)
 
-        nowPlayingPageList = LivePagedListBuilder(sourceFactory, config).build()
+        nowPlayingPageList = LivePagedListBuilder(nowPlayingSourceFactory, config).build()
 
         nowPlayingStateObservable = Transformations.switchMap<NowPlayingDataSource, HomeState>(
-            sourceFactory.nowPlayingLiveData, NowPlayingDataSource::stateObservable)
+            nowPlayingSourceFactory.nowPlayingLiveData, NowPlayingDataSource::stateObservable)
     }
 
     fun getUpcomingMovies() {
         Log.d(TAG, " >>> Trying to get upcoming movies")
 
-        val sourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
+        upcomingMoviesSourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
             compositeDisposable, RequestType.UPCOMING_MOVIES)
 
-        upcomingMoviesPageList = LivePagedListBuilder(sourceFactory, config).build()
+        upcomingMoviesPageList = LivePagedListBuilder(upcomingMoviesSourceFactory, config).build()
 
         upcomingMoviesStateObservable = Transformations.switchMap<UpcomingDataSource, HomeState>(
-            sourceFactory.upcomingMoviesLiveData, UpcomingDataSource::stateObservable)
+            upcomingMoviesSourceFactory.upcomingMoviesLiveData, UpcomingDataSource::stateObservable)
     }
 
     fun getPopularPeoples() {
         Log.d(TAG, " >>> Trying to get popular peoples")
 
-        val sourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
+        popularPeopleSourceFactory = DataSourceFactory(moviesRepoI, tvShowsRepoI, popularRepoI,
             compositeDisposable, RequestType.POPULAR_PEOPLES)
 
-        popularPeoplePageList = LivePagedListBuilder(sourceFactory, config).build()
+        popularPeoplePageList = LivePagedListBuilder(popularPeopleSourceFactory, config).build()
 
         popularPeopleStateObservable = Transformations.switchMap<PopularDataSource, HomeState>(
-            sourceFactory.popularPeopleLiveData, PopularDataSource::stateObservable)
+            popularPeopleSourceFactory.popularPeopleLiveData, PopularDataSource::stateObservable)
+    }
+
+    fun retry(type: RequestType) {
+        when(type) {
+            RequestType.TRENDING_MOVIE -> {
+                trendingMoviesSourceFactory.trendingMoviesLiveData.value?.retry()
+            }
+            RequestType.TRENDING_TVSHOWS -> {
+                trendingTVShowsSourceFactory.trendingTVShowsLiveData.value?.retry()
+            }
+            RequestType.NOW_PLAYING -> {
+                nowPlayingSourceFactory.nowPlayingLiveData.value?.retry()
+            }
+            RequestType.UPCOMING_MOVIES -> {
+                upcomingMoviesSourceFactory.upcomingMoviesLiveData.value?.retry()
+            }
+            RequestType.POPULAR_PEOPLES -> {
+                popularPeopleSourceFactory.popularPeopleLiveData.value?.retry()
+            }
+            RequestType.TOP_PICKS -> {}
+        }
     }
 
     override fun onCleared() {

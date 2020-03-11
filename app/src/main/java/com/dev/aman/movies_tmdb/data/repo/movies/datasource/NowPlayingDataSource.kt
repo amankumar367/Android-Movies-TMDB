@@ -26,6 +26,9 @@ class NowPlayingDataSource(
             publishState(value)
         }
 
+    // keep a function reference for the retry event
+    private var retry: (() -> Any)? = null
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Result>
@@ -40,6 +43,7 @@ class NowPlayingDataSource(
                     state = state.copy(initialLoading = false, success = true, eventType = requestType)
                     callback.onResult(it.results, null, lastRequestedPage)
                 }, {
+                    retry = { loadInitial(params, callback) }
                     state = state.copy(initialLoading = false, failure = true, message = it.localizedMessage, eventType = requestType)
                 })
         )
@@ -63,6 +67,14 @@ class NowPlayingDataSource(
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Result>) {
 
+    }
+
+    fun retry() {
+        Log.d(TAG, " >>> Received call to retry now playing request")
+        val prevRetry = retry
+        retry = null
+        lastRequestedPage = 1
+        prevRetry?.invoke()
     }
 
     private fun publishState(state: HomeState) {

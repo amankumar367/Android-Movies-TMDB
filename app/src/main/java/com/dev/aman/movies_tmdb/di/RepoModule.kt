@@ -23,16 +23,12 @@ class RepoModule {
     @Provides
     @Singleton
     fun provideTVShowsRepo(apiInterface: ApiInterface): TVShowsRepoI {
-        return TVShowsRepo(
-            apiInterface
-        )
+        return TVShowsRepo(apiInterface)
     }
 
     @Provides
     @Singleton
     fun providePopularRepo(apiInterface: ApiInterface): PopularRepoI {
-        return PopularRepo(
-            apiInterface
-        )
+        return PopularRepo(apiInterface)
     }
 }

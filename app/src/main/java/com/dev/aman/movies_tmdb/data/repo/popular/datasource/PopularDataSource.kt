@@ -26,6 +26,9 @@ class PopularDataSource(
             publishState(value)
         }
 
+    // keep a function reference for the retry event
+    private var retry: (() -> Any)? = null
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Result>
@@ -40,6 +43,7 @@ class PopularDataSource(
                     state = state.copy(initialLoading = false, success = true, eventType = requestType)
                     callback.onResult(it.results, null, 2)
                 }, {
+                    retry = { loadInitial(params, callback) }
                     state = state.copy(initialLoading = false, failure = true, message = it.localizedMessage, eventType = requestType)
                 })
         )
@@ -65,6 +69,14 @@ class PopularDataSource(
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Result>) {
 
+    }
+
+    fun retry() {
+        Log.d(TAG, " >>> Received call to retry popular people request")
+        val prevRetry = retry
+        retry = null
+        lastRequestedPage = 1
+        prevRetry?.invoke()
     }
 
     private fun publishState(state: HomeState) {

@@ -47,6 +47,10 @@ class CommonAdapter(private val type: RequestType)
         result?.let {
             when (type) {
                 RequestType.POPULAR_PEOPLES -> (holder as PopularPeopleVH).bind(result)
+                RequestType.NOW_PLAYING -> {
+                    (holder as CommonViewHolder).bind(result)
+                    holder.setIsRecyclable(false)
+                }
                 else -> (holder as CommonViewHolder).bind(result)
             }
         }
@@ -77,6 +81,7 @@ class CommonAdapter(private val type: RequestType)
             Picasso.get().load(ApiConstants.BASE_URL_IMAGE + result.posterPath ).into(view.iv_single_grid_poster)
 
             if (type == RequestType.UPCOMING_MOVIES) view.tv_single_rating.gone()
+            if (result.voteAverage == 0.0) view.tv_single_rating.gone()
 
             onClick()
         }

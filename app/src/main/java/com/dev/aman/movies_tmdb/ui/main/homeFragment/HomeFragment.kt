@@ -27,6 +27,7 @@ import com.dev.aman.movies_tmdb.ui.adapter.*
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.layout_connection_retry.view.*
 import javax.inject.Inject
 
 
@@ -133,19 +134,19 @@ class HomeFragment : DaggerFragment() {
     }
 
     private fun onClick() {
-        root.trending_movies_retry.setOnClickListener {
+        root.trending_movies_retry.btn_retry.setOnClickListener {
             homeViewModel.retry(RequestType.TRENDING_MOVIE)
         }
-        root.trending_tvShows_retry.setOnClickListener {
+        root.trending_tvShows_retry.btn_retry.setOnClickListener {
             homeViewModel.retry(RequestType.TRENDING_TVSHOWS)
         }
-        root.now_playing_retry.setOnClickListener {
+        root.now_playing_retry.btn_retry.setOnClickListener {
             homeViewModel.retry(RequestType.NOW_PLAYING)
         }
-        root.upcoming_movies_retry.setOnClickListener {
+        root.upcoming_movies_retry.btn_retry.setOnClickListener {
             homeViewModel.retry(RequestType.UPCOMING_MOVIES)
         }
-        root.popular_people_retry.setOnClickListener {
+        root.popular_people_retry.btn_retry.setOnClickListener {
             homeViewModel.retry(RequestType.POPULAR_PEOPLES)
         }
     }

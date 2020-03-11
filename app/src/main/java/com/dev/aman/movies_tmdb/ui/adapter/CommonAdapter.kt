@@ -49,7 +49,7 @@ class CommonAdapter(private val type: RequestType)
                 RequestType.POPULAR_PEOPLES -> (holder as PopularPeopleVH).bind(result)
                 RequestType.NOW_PLAYING -> {
                     (holder as CommonViewHolder).bind(result)
-                    holder.setIsRecyclable(false)
+                    (holder as CommonViewHolder).setIsRecyclable(false)
                 }
                 else -> (holder as CommonViewHolder).bind(result)
             }
@@ -78,7 +78,10 @@ class CommonAdapter(private val type: RequestType)
             view.tv_single_grid_title.text = result.title?.let { it } ?: run { result.name }
             view.tv_single_rating.text = result.voteAverage.toString()
             view.iv_single_grid_poster.clipToOutline = true
-            Picasso.get().load(ApiConstants.BASE_URL_IMAGE + result.posterPath ).into(view.iv_single_grid_poster)
+            Picasso.get()
+                .load(ApiConstants.BASE_URL_IMAGE + result.posterPath )
+                .placeholder(R.drawable.ic_place_holder)
+                .into(view.iv_single_grid_poster)
 
             if (type == RequestType.UPCOMING_MOVIES) view.tv_single_rating.gone()
             if (result.voteAverage == 0.0) view.tv_single_rating.gone()
@@ -96,7 +99,10 @@ class CommonAdapter(private val type: RequestType)
     class PopularPeopleVH(private val view: View): RecyclerView.ViewHolder(view) {
         fun bind(result: Result) {
             view.tv_popular_people_name.text = result.name!!
-            Picasso.get().load(ApiConstants.BASE_URL_IMAGE + result.profilePath).into(view.circleImageView_popular_peole)
+            Picasso.get()
+                .load(ApiConstants.BASE_URL_IMAGE + result.profilePath)
+                .placeholder(R.drawable.ic_account)
+                .into(view.circleImageView_popular_peole)
             onClick()
         }
 

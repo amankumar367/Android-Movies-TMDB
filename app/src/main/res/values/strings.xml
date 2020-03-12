@@ -33,4 +33,6 @@
     <string name="now_playing">Now Playing</string>
     <string name="top_picks">Top Picks</string>
     <string name="upcoming">Upcoming</string>
+    <string name="try_again_message">Please connect to the internet and try again.</string>
+    <string name="retry">Retry</string>
 </resources>

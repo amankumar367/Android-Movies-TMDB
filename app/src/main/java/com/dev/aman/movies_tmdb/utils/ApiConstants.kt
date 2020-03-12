@@ -1,7 +1,5 @@
 package com.dev.aman.movies_tmdb.utils
 
-import com.dev.aman.movies_tmdb.BuildConfig
-
 object ApiConstants {
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val BASE_URL_IMAGE = "http://image.tmdb.org/t/p/w185"
@@ -18,9 +16,9 @@ object ApiConstants {
     const val TRENDING_DAY_PERSON = "trending/person/day"
 
     // Movies URL
-    const val NOW_PLAYING = "movie/now_playing?language=en-US&page=1&region=IN"
-    const val UPCOMING_MPVIES = "movie/upcoming?language=en-US&page=1&region=IN"
+    const val NOW_PLAYING = "movie/now_playing?language=en-US&region=IN"
+    const val UPCOMING_MPVIES = "movie/upcoming?language=en-US&region=IN"
 
     // Popular People
-    const val POPULAR_PEOPLE = "person/popular?page=1&language=en-US"
+    const val POPULAR_PEOPLE = "person/popular?language=en-US"
 }

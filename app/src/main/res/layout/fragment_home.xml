@@ -33,7 +33,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="85dp"
+                        android:layout_marginTop="22dp"
                         android:text="@string/trending"
                         android:textColor="@android:color/background_light"
                         android:textSize="20sp"

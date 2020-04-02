@@ -27,6 +27,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/app_background">
 
+                <!-- Trending Movies -->
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_trending_movie_title"
                         android:layout_width="wrap_content"
@@ -105,6 +106,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/rv_trending_movies"/>
 
+                <!-- Trending TVShows -->
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_trending_tvShows_title"
                         android:layout_width="wrap_content"
@@ -183,6 +185,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/rv_trending_tvShows"/>
 
+                <!-- Now Playing Movies -->
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_now_playing_title"
                         android:layout_width="wrap_content"
@@ -261,6 +264,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/rv_now_playing"/>
 
+                <!-- Upcoming Movies -->
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_upcoming_movies_title"
                         android:layout_width="wrap_content"
@@ -339,6 +343,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/rv_upcoming_movies"/>
 
+                <!-- Netflix Top Picks -->
                 <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_top_picks_title"
                         android:layout_width="80dp"
@@ -413,6 +418,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/rv_top_picks"/>
 
+                <!-- Popular People -->
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_popular_people_title"
                         android:layout_width="wrap_content"

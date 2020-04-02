@@ -9,11 +9,11 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d(TAG, "BaseActivity Created")
+        Log.d(TAG, " >>> BaseActivity Created")
 
     }
 
     companion object {
-        private var TAG = BaseActivity::class.java.simpleName
+        private var TAG = "BaseActivity"
     }
 }

@@ -7,12 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="drawerArrowStyle">@style/drawerIcon</item>
-    </style>
-
-    <!-- New Style for Change Drawer Icon color -->
-    <style name="drawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/white_10</item>
     </style>
 
     <style name="Theme.TMDB.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>

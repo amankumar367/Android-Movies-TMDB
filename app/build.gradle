@@ -23,14 +23,6 @@ android {
         buildConfigField "String", "TMDB_API_KEY", "\"${getProperty("local.properties", "TMDB_API_KEY")}\""
     }
 
-    dataBinding {
-        enabled true
-    }
-
-    androidExtensions {
-        experimental = true
-    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -41,6 +33,18 @@ android {
         debug {
             debuggable = true
         }
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 }
 

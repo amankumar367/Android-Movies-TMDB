@@ -5,20 +5,20 @@
         android:id="@+id/top_group"
         android:checkableBehavior="single">
         <item
-                android:id="@+id/ln_home"
+                android:id="@+id/home_screen"
                 android:icon="@drawable/ic_home"
-                android:title="@string/bn_home" />
+                android:title="@string/home" />
     </group>
 
     <group
             android:id="@+id/middle_group"
             android:checkableBehavior="single">
         <item
-                android:id="@+id/ln_movies"
+                android:id="@+id/movies_screen"
                 android:icon="@drawable/ic_movie"
                 android:title="@string/movies" />
         <item
-                android:id="@+id/ln_tv_shows"
+                android:id="@+id/tvShows_screen"
                 android:icon="@drawable/ic_tv_shows"
                 android:title="@string/tv_shows" />
         <item
@@ -26,7 +26,7 @@
                 android:icon="@drawable/ic_discover"
                 android:title="@string/discover" />
         <item
-                android:id="@+id/ln_popular_people"
+                android:id="@+id/popular_people_screen"
                 android:icon="@drawable/ic_people"
                 android:title="@string/popular_people" />
     </group>

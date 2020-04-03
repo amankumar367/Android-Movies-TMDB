@@ -2,9 +2,9 @@
     <string name="app_name">Movies TMDB</string>
 
     // Bottom Navigation
-    <string name="bn_home">Home</string>
-    <string name="bn_trailer">Trailers</string>
-    <string name="bn_progress">Progress</string>
+    <string name="home">Home</string>
+    <string name="trailer">Trailers</string>
+    <string name="progress">Progress</string>
 
     // Left Navigation
     <string name="movies">Movies</string>

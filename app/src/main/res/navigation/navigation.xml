@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            app:startDestination="@+id/home_screen">
+
+    <fragment
+            android:id="@+id/home_screen"
+            android:name="com.dev.aman.movies_tmdb.ui.main.homeFragment.HomeFragment"
+            android:label="@string/home"
+            tools:layout="@layout/fragment_home">
+        <action
+                android:id="@+id/action_home_screen_to_movies_screen"
+                app:destination="@id/movies_screen"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+        <action
+                android:id="@+id/action_home_screen_to_tvShows_screen"
+                app:destination="@id/tvShows_screen"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+        <action
+                android:id="@+id/action_home_screen_to_popular_people_screen"
+                app:destination="@id/popular_people_screen"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/trailer_screen"
+            android:name="com.dev.aman.movies_tmdb.ui.main.trailerFragment.TrailerFragment"
+            android:label="@string/trailer"
+            tools:layout="@layout/fragment_trailers">
+    </fragment>
+
+    <fragment
+            android:id="@+id/progress_screen"
+            android:name="com.dev.aman.movies_tmdb.ui.main.progressFragment.ProgressFragment"
+            android:label="@string/progress"
+            tools:layout="@layout/fragment_progress">
+    </fragment>
+
+    <fragment
+            android:id="@+id/movies_screen"
+            android:name="com.dev.aman.movies_tmdb.ui.movies.MoviesFragment"
+            android:label="@string/movies"
+            tools:layout="@layout/fragment_movies">
+    </fragment>
+
+    <fragment
+            android:id="@+id/tvShows_screen"
+            android:name="com.dev.aman.movies_tmdb.ui.tvshows.TVShowsFragment"
+            android:label="@string/tv_shows"
+            tools:layout="@layout/fragment_tvshows">
+    </fragment>
+
+    <fragment
+            android:id="@+id/popular_people_screen"
+            android:name="com.dev.aman.movies_tmdb.ui.popularpeople.PopularPeopleFragment"
+            android:label="@string/popular_people"
+            tools:layout="@layout/fragment_popular_people">
+    </fragment>
+</navigation>

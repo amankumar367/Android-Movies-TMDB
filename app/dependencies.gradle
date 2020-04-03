@@ -31,6 +31,7 @@ ext {
     final def vStetho                   = '1.5.0'
     final def vPicasso                  = '2.71828'
     final def vPaging                   = "2.1.1"
+    final def vNavigation               = "2.2.1"
 
     /* Test Libraries */
     final def vJUnit                = '4.12'
@@ -125,6 +126,11 @@ ext {
             pagingCommon: "androidx.paging:paging-common:$vPaging"
     ]
 
+    navigation = [
+            navigationFragment  : "androidx.navigation:navigation-fragment-ktx:$vNavigation",
+            navigationUIKTX     : "androidx.navigation:navigation-ui-ktx:$vNavigation"
+    ]
+
     allImplementation = [
             androidSupportLibrary: androidSupportLibrary.values(),
             androidLibraries     : androidLibraries.values(),
@@ -135,6 +141,7 @@ ext {
             testLibs             : testLibs.values(),
             archLifecycle        : archLifecycle.values(),
             libsDependencies     : libs.values(),
-            pagingLibrary        : paging.values()
+            pagingLibrary        : paging.values(),
+            navigationLibrary    : navigation.values()
     ]
 }

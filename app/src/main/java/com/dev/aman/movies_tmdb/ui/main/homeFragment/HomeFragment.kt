@@ -90,37 +90,37 @@ class HomeFragment : DaggerFragment() {
     }
 
     private fun setStateObserver() {
-        homeViewModel.trendingMoviesStateObservable.observe(this, Observer {
+        homeViewModel.trendingMoviesStateObservable.observe(viewLifecycleOwner, Observer {
             updateView(it)
         })
-        homeViewModel.trendingTVShowsStateObservable.observe(this, Observer {
+        homeViewModel.trendingTVShowsStateObservable.observe(viewLifecycleOwner, Observer {
             updateView(it)
         })
-        homeViewModel.nowPlayingStateObservable.observe(this, Observer {
+        homeViewModel.nowPlayingStateObservable.observe(viewLifecycleOwner, Observer {
             updateView(it)
         })
-        homeViewModel.upcomingMoviesStateObservable.observe(this, Observer {
+        homeViewModel.upcomingMoviesStateObservable.observe(viewLifecycleOwner, Observer {
             updateView(it)
         })
-        homeViewModel.popularPeopleStateObservable.observe(this, Observer {
+        homeViewModel.popularPeopleStateObservable.observe(viewLifecycleOwner, Observer {
             updateView(it)
         })
     }
 
     private fun setPagingObserver() {
-        homeViewModel.trendingMoviesPageList.observe(this, Observer {
+        homeViewModel.trendingMoviesPageList.observe(viewLifecycleOwner, Observer {
             trendingMoviesAdapter.submitList(it)
         })
-        homeViewModel.trendingTVShowsPageList.observe(this, Observer {
+        homeViewModel.trendingTVShowsPageList.observe(viewLifecycleOwner, Observer {
             trendingTVShowsAdapter.submitList(it)
         })
-        homeViewModel.nowPlayingPageList.observe(this, Observer {
+        homeViewModel.nowPlayingPageList.observe(viewLifecycleOwner, Observer {
             nowPlayingAdapter.submitList(it)
         })
-        homeViewModel.upcomingMoviesPageList.observe(this, Observer {
+        homeViewModel.upcomingMoviesPageList.observe(viewLifecycleOwner, Observer {
             upcomingMoviesAdapter.submitList(it)
         })
-        homeViewModel.popularPeoplePageList.observe(this, Observer {
+        homeViewModel.popularPeoplePageList.observe(viewLifecycleOwner, Observer {
             popularPeopleAdapter.submitList(it)
         })
     }

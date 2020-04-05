@@ -12,6 +12,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/ic_account"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

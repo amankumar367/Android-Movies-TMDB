@@ -12,5 +12,9 @@
     // Blue Gray #5A7D8D
     <color name="bluegray_80">#5A7D8D</color>
     <color name="bluegray_10">#ADBEC6</color>
+    <color name="ripple_transparent">#26FFFFFF</color>
+
+    // TMDB text color
+    <color name="white_70">#CED7DB</color>
 
 </resources>

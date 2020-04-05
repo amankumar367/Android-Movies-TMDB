@@ -30,18 +30,30 @@
                     android:background="@color/app_background">
 
                 <!-- Trending Movies -->
+                <View
+                        android:id="@+id/view_trending_movies"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_height"
+                        android:background="@drawable/bg_view"
+                        android:layout_marginTop="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_trending_movie_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="22dp"
                         android:text="@string/trending"
                         android:textColor="@android:color/background_light"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="@+id/view_trending_movies"
+                        app:layout_constraintTop_toTopOf="@+id/view_trending_movies"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_trending_movies"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_trending_movie_subtitle"
@@ -83,10 +95,9 @@
                         android:id="@+id/rv_trending_movies"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
-                        android:layout_marginTop="16dp"
                         app:layout_constraintEnd_toStartOf="@+id/pb_next_trending_movies"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_trending_movie_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/view_trending_movies" />
 
                 <ProgressBar
                         android:id="@+id/pb_next_trending_movies"
@@ -109,18 +120,30 @@
                         app:layout_constraintTop_toTopOf="@+id/rv_trending_movies"/>
 
                 <!-- Trending TVShows -->
+                <View
+                        android:id="@+id/view_trending_tvShows"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_height"
+                        android:background="@drawable/bg_view"
+                        android:layout_marginTop="15dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_trending_movies"/>
+
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_trending_tvShows_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="32dp"
                         android:text="@string/trending"
                         android:textColor="@android:color/background_light"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rv_trending_movies" />
+                        app:layout_constraintStart_toStartOf="@+id/view_trending_tvShows"
+                        app:layout_constraintTop_toTopOf="@+id/view_trending_tvShows"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_trending_tvShows" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_trending_tvShows_subtitle"
@@ -162,10 +185,9 @@
                         android:id="@+id/rv_trending_tvShows"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
-                        android:layout_marginTop="16dp"
                         app:layout_constraintEnd_toStartOf="@+id/pb_next_trending_tvShows"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_trending_tvShows_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/view_trending_tvShows" />
 
                 <ProgressBar
                         android:id="@+id/pb_next_trending_tvShows"
@@ -188,18 +210,30 @@
                         app:layout_constraintTop_toTopOf="@+id/rv_trending_tvShows"/>
 
                 <!-- Now Playing Movies -->
+                <View
+                        android:id="@+id/view_now_playing"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_height"
+                        android:background="@drawable/bg_view"
+                        android:layout_marginTop="15dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_trending_tvShows"/>
+
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_now_playing_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="32dp"
                         android:text="@string/now_playing"
                         android:textColor="@android:color/background_light"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rv_trending_tvShows" />
+                        app:layout_constraintStart_toStartOf="@+id/view_now_playing"
+                        app:layout_constraintTop_toTopOf="@+id/view_now_playing"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_now_playing"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_now_playing_subtitle"
@@ -241,10 +275,9 @@
                         android:id="@+id/rv_now_playing"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
-                        android:layout_marginTop="16dp"
                         app:layout_constraintEnd_toStartOf="@+id/pb_next_now_playing"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_now_playing_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/view_now_playing" />
 
                 <ProgressBar
                         android:id="@+id/pb_next_now_playing"
@@ -267,18 +300,30 @@
                         app:layout_constraintTop_toTopOf="@+id/rv_now_playing"/>
 
                 <!-- Upcoming Movies -->
+                <View
+                        android:id="@+id/view_upcoming_movies"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_height"
+                        android:background="@drawable/bg_view"
+                        android:layout_marginTop="15dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_now_playing"/>
+
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_upcoming_movies_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="32dp"
                         android:text="@string/upcoming"
                         android:textColor="@android:color/background_light"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rv_now_playing" />
+                        app:layout_constraintStart_toStartOf="@+id/view_upcoming_movies"
+                        app:layout_constraintTop_toTopOf="@+id/view_upcoming_movies"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_upcoming_movies" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_upcoming_movies_subtitle"
@@ -320,10 +365,9 @@
                         android:id="@+id/rv_upcoming_movies"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
-                        android:layout_marginTop="16dp"
                         app:layout_constraintEnd_toStartOf="@+id/pb_next_upcoming_movies"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_upcoming_movies_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/view_upcoming_movies" />
 
                 <ProgressBar
                         android:id="@+id/pb_next_upcoming_movies"
@@ -346,15 +390,27 @@
                         app:layout_constraintTop_toTopOf="@+id/rv_upcoming_movies"/>
 
                 <!-- Netflix Top Picks -->
+                <View
+                        android:id="@+id/view_top_picks"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_height"
+                        android:background="@drawable/bg_view"
+                        android:layout_marginTop="15dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_upcoming_movies"/>
+
                 <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_top_picks_title"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="32dp"
                         android:src="@drawable/ic_netflix"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rv_upcoming_movies" />
+                        app:layout_constraintStart_toStartOf="@+id/view_top_picks"
+                        app:layout_constraintTop_toTopOf="@+id/view_top_picks"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_top_picks" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_top_picks_subtitle"
@@ -395,10 +451,9 @@
                         android:id="@+id/rv_top_picks"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/recyclerview_height"
-                        android:layout_marginTop="16dp"
                         app:layout_constraintEnd_toStartOf="@+id/pb_next_top_picks"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_top_picks_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/view_top_picks" />
 
                 <ProgressBar
                         android:id="@+id/pb_next_top_picks"
@@ -421,18 +476,30 @@
                         app:layout_constraintTop_toTopOf="@+id/rv_top_picks"/>
 
                 <!-- Popular People -->
+                <View
+                        android:id="@+id/view_popular_people"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_height"
+                        android:background="@drawable/bg_view"
+                        android:layout_marginTop="15dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_top_picks"/>
+
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_popular_people_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="32dp"
                         android:text="@string/popular_people"
                         android:textColor="@android:color/background_light"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rv_top_picks" />
+                        app:layout_constraintStart_toStartOf="@+id/view_popular_people"
+                        app:layout_constraintTop_toTopOf="@+id/view_popular_people"
+                        app:layout_constraintBottom_toBottomOf="@+id/view_popular_people" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_popular_people_more"
@@ -459,11 +526,10 @@
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_popular_people"
                         android:layout_width="0dp"
-                        android:layout_height="105dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_height="115dp"
                         app:layout_constraintEnd_toStartOf="@+id/pb_next_popular_people"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_popular_people_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/view_popular_people" />
 
                 <ProgressBar
                         android:id="@+id/pb_next_popular_people"

@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.aman.movies_tmdb.R
@@ -18,12 +20,10 @@ import com.dev.aman.movies_tmdb.data.repo.movies.MoviesRepoI
 import com.dev.aman.movies_tmdb.data.repo.popular.PopularRepoI
 import com.dev.aman.movies_tmdb.data.repo.tvshows.TVShowsRepoI
 import com.dev.aman.movies_tmdb.databinding.FragmentHomeBinding
-import com.dev.aman.movies_tmdb.extentions.createFactory
-import com.dev.aman.movies_tmdb.extentions.gone
-import com.dev.aman.movies_tmdb.extentions.invisible
-import com.dev.aman.movies_tmdb.extentions.visible
+import com.dev.aman.movies_tmdb.extentions.*
 import com.dev.aman.movies_tmdb.network.RequestType
 import com.dev.aman.movies_tmdb.ui.adapter.*
+import com.dev.aman.movies_tmdb.utils.Screen
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -148,6 +148,24 @@ class HomeFragment : DaggerFragment() {
         }
         root.popular_people_retry.btn_retry.setOnClickListener {
             homeViewModel.retry(RequestType.POPULAR_PEOPLES)
+        }
+        root.view_trending_movies.setOnClickListener {
+            navigateToScreen(Screen.MOVIES)
+        }
+        root.view_trending_tvShows.setOnClickListener {
+            navigateToScreen(Screen.TV_SHOWS)
+        }
+        root.view_now_playing.setOnClickListener {
+            navigateToScreen(Screen.MOVIES)
+        }
+        root.view_upcoming_movies.setOnClickListener {
+            navigateToScreen(Screen.MOVIES)
+        }
+        root.view_top_picks.setOnClickListener {
+            navigateToScreen(Screen.HOME)
+        }
+        root.view_popular_people.setOnClickListener {
+            navigateToScreen(Screen.POPULAR_PEOPLE)
         }
     }
 
@@ -335,6 +353,16 @@ class HomeFragment : DaggerFragment() {
 
         popularPeopleAdapter = CommonAdapter(RequestType.POPULAR_PEOPLES)
         root.rv_popular_people.adapter = popularPeopleAdapter
+    }
+
+    private fun navigateToScreen(screen: Screen) {
+        Log.d(TAG, " >>> Received call to navigate to ${screen.name} screen")
+        when (screen) {
+            Screen.MOVIES -> root.findNavController().navigate(R.id.action_home_screen_to_movies_screen)
+            Screen.TV_SHOWS -> root.findNavController().navigate(R.id.action_home_screen_to_tvShows_screen)
+            Screen.POPULAR_PEOPLE -> root.findNavController().navigate(R.id.action_home_screen_to_popular_people_screen)
+            else -> showToast("This ${screen.name} screen is not available")
+        }
     }
 
     private fun show(view: View) {

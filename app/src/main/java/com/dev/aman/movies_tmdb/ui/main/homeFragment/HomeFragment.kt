@@ -162,7 +162,7 @@ class HomeFragment : DaggerFragment() {
             navigateToScreen(Screen.MOVIES)
         }
         root.view_top_picks.setOnClickListener {
-            navigateToScreen(Screen.HOME)
+            navigateToScreen(Screen.TV_SHOWS)
         }
         root.view_popular_people.setOnClickListener {
             navigateToScreen(Screen.POPULAR_PEOPLE)

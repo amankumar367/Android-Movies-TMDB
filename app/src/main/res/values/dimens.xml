@@ -28,4 +28,8 @@
 
     <dimen name="view_height">50dp</dimen>
 
+    <dimen name="standard_14">14dp</dimen>
+    <dimen name="standard_16">16dp</dimen>
+
+
 </resources>

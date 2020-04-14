@@ -11,8 +11,13 @@
 
     <style name="Theme.TMDB.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
-    <style name="TabText" parent="TextAppearance.Design.Tab">
+    <style name="Theme.TabText" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="Theme.Ripple" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/ripple_transparent</item>
     </style>
 
 </resources>
